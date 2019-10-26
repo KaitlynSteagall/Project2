@@ -10,7 +10,7 @@ var db = require("../models");
 //  admin access: add/drop users, approve/reject submissions, add penguins
 //  user access: approve/reject submissions, add penguins
 
-module.exports = function (app) {
+module.exports = function(app) {
   // Load index page
   app.get("/", (request, response) => {
     response.render("index");
@@ -18,8 +18,9 @@ module.exports = function (app) {
 
   // load specific puffin's page, notes, some random images
   app.get("/puffins/:id", (request, response) => {
-    db.puffins.findOne({ where: { id: request.params.id } })
-      .then((targetPuffin) => {
+    db.puffins
+      .findOne({ where: { id: request.params.id } })
+      .then(targetPuffin => {
         response.render("example", {
           example: targetPuffin //"example" is the name of the handlebars file
         });
@@ -28,12 +29,11 @@ module.exports = function (app) {
 
   // load specific user's page, notes, some random images of that puff
   app.get("/users/:id", (request, response) => {
-    db.users.findOne({ where: { id: request.params.id } })
-      .then((targetUser) => {
-        response.render("example", {
-          example: targetUser //"example" is the name of the handlebars file
-        });
+    db.users.findOne({ where: { id: request.params.id } }).then(targetUser => {
+      response.render("example", {
+        example: targetUser //"example" is the name of the handlebars file
       });
+    });
   });
 
   // load admin page
@@ -48,8 +48,9 @@ module.exports = function (app) {
 
   // load image page: all images for specific puffin
   app.get("/images/:id", (request, response) => {
-    db.images.findAll({ where: { puffin_id: request.params.id } })
-      .then((imagesReturned) => {
+    db.images
+      .findAll({ where: { puffinId: request.params.id } })
+      .then(imagesReturned => {
         response.render("images", {
           images: imagesReturned
         });
