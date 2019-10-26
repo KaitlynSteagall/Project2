@@ -1,5 +1,12 @@
+# local OS files
 .DS_Store
+.vscode
+
+# modules and utilities
 node_modules
 npm-debug.log
+.eslintignore
+.eslintrc.json
+
+# security
 .env
-.vscode
