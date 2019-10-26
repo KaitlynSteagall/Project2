@@ -1,6 +1,7 @@
 # PuffinPower
 
 ## What Is This Thing?
+PuffinPower is a database and communication app. It offers researchers tools to easily store, sort, and retrieve information on their subjects, and facilitates easy crowd-sourcing of further data by letting members of the public submit their own observations and images.
 
 ## Why is it Special?
 
