@@ -5,14 +5,14 @@ module.exports = {
   development: {
     username: "root",
     password: process.env.DB_PASS,
-    database: "exampledb",
+    database: "puffinpowerDB",
     host: "localhost",
     dialect: "mysql"
   },
   test: {
     username: "root",
     password: null,
-    database: "testdb",
+    database: "puffinpowerDB",
     host: "localhost",
     dialect: "mysql",
     logging: false
