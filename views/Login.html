@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <form>
+        <div class="form-group">
+            <label for="userEmail">Email address</label>
+            <input type="email" class="form-control" id="userEmail" aria-describedby="emailHelp"
+                placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">Enter your assigned work email.</small>
+        </div>
+        <div class="form-group">
+            <label for="userPassword">Password</label>
+            <input type="password" class="form-control" id="userPassword" placeholder="Password">
+            <small id="emailHelp" class="form-text text-muted">Enter the password you created during orientation.</small>
+        </div>
+        <button type="submit" class="btn btn-primary" id="signinButton">Submit</button>
+    </form>
+
+    <button type="submit" class="btn btn-secondary" id="signoutButton">Sign Out</button>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBLnaCoI1DzsO_7yccSzmsbb4vGVAN9iIM",
+            authDomain: "puffinpower-90f79.firebaseapp.com",
+            databaseURL: "https://puffinpower-90f79.firebaseio.com",
+            projectId: "puffinpower-90f79",
+            storageBucket: "puffinpower-90f79.appspot.com",
+            messagingSenderId: "934243007516",
+            appId: "1:934243007516:web:b8d887b235a3578a2c33d9"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        //sign in
+        auth.signInWithEmailAndPassword(email, password).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log("inside sign in auth error message");
+        });
+
+        //log out
+        auth.signOut().then(function () {
+            // Sign-out successful.
+            console.log("inside sign out auth success");
+        }).catch(function (error) {
+            // An error happened.
+            console.log("inside sign out auth error message");
+        });
+
+        $("#signinButton").on('click', function() {
+            var email = $("#userEmail").val();
+            var password = $("#userPassword").val();
+            signInWithEmailAndPassword(email, password);
+        });
+
+        $("#signoutButton").on('click', function() {
+            signOut();
+        })
+    </script>
+</body>
+
+</html>
