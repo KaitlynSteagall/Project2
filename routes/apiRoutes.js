@@ -6,11 +6,9 @@
 const db = require("../models");
 
 module.exports = function(app) {
-
   //-------------
   //  GET routes
   //-------------
-  
   // get all puffins
   app.get("/api/puffins", (request, response) => {
     db.Puffin.findAll({}).then(puffinsFromDB => {
@@ -24,10 +22,9 @@ module.exports = function(app) {
       where: {
         id: request.params.id
       }
-    })
-      .then(puffinFromDB => {
-        response.json(puffinFromDB);
-      });
+    }).then(puffinFromDB => {
+      response.json(puffinFromDB);
+    });
   });
 
   // get all users
@@ -38,15 +35,14 @@ module.exports = function(app) {
   });
 
   // get particular user
-  app.get("/api/puffins/:id", (request, response) => {
+  app.get("/api/users/:id", (request, response) => {
     db.User.findOne({
       where: {
         id: request.params.id
       }
-    })
-      .then(userFromDB => {
-        response.json(userFromDB);
-      });
+    }).then(userFromDB => {
+      response.json(userFromDB);
+    });
   });
 
   // get notes by puffin id
@@ -54,16 +50,17 @@ module.exports = function(app) {
     db.Notes.findAll({
       where: {
         puffinKey: request.params.puffID
+      },
+      order: {
+        createdAt: "ASC"
       }
-    })
-      .then(noteDB => {
-        response.json(noteDB);
-      });
+    }).then(noteDB => {
+      response.json(noteDB);
+    });
   });
 
-
   //--------------
-  //  POST routes
+  //  CREATE routes
   //--------------
 
   // Push new puffin to database
@@ -90,7 +87,8 @@ module.exports = function(app) {
     db.Puffin.destroy({ where: { id: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
-      });
+      }
+    );
   });
 
   // delete user
@@ -98,6 +96,7 @@ module.exports = function(app) {
     db.User.destroy({ where: { id: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
-      });
+      }
+    );
   });
 };
