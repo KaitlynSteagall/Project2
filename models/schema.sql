@@ -31,10 +31,8 @@ CREATE TABLE notes (
 	notesIndex INT AUTO_INCREMENT NOT NULL,
     notes TEXT NOT NULL,
     puffinIndex INT NOT NULL,
-    userIndex INT NOT NULL,
 	primary key (notesIndex),
     FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex),
-    FOREIGN KEY (userIndex) REFERENCES users(userIndex)
 );
 
 CREATE TABLE imageurls (
