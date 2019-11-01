@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS puffinpowerDB;
 CREATE DATABASE puffinpowerDB;
 
 USE puffinpowerDB;
@@ -28,18 +29,19 @@ CREATE TABLE public (
 
 CREATE TABLE notes (
 	notesIndex INT AUTO_INCREMENT NOT NULL,
-    puffinName VARCHAR(100) NOT NULL,
-    userName VARCHAR(100) NOT NULL,
     notes TEXT NOT NULL,
+    puffinIndex INT NOT NULL,
+    userIndex INT NOT NULL,
 	primary key (notesIndex),
     FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex),
-    FOREIGN KEY (userName) REFERENCES users(userName)
+    FOREIGN KEY (userIndex) REFERENCES users(userIndex)
 );
 
 CREATE TABLE imageurls (
 	imgIndex INT AUTO_INCREMENT NOT NULL,
     imgurl VARCHAR(255),
     artistName VARCHAR(255),
+    puffinIndex INT NOT NULL,
 	primary key(imgIndex),
-    FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex))
+    FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex)
 );
