@@ -1,9 +1,9 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Users = sequelize.define("Users", {
     userIndex: {
-        Type: DataTypes.INTEGER,
-        autoIncrement: true,
-        allowNull: false
+      Type: DataTypes.INTEGER,
+      autoIncrement: true,
+      allowNull: false
     },
     userName: {
       Type: DataTypes.STRING,
