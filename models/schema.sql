@@ -10,18 +10,13 @@ CREATE TABLE users (
 	primary key(userIndex)
 );
 
-USE puffinpowerDB;
-
 CREATE TABLE puffins (
 	puffinIndex INT AUTO_INCREMENT NOT NULL,
     puffinName VARCHAR(100),
     gender VARCHAR(100),
     age INT,
-    photos VARCHAR(10000),
 	primary key(puffinIndex)
 );
-
-USE puffinpowerDB;
 
 CREATE TABLE public (
 	publicIndex INT AUTO_INCREMENT NOT NULL,
@@ -31,14 +26,20 @@ CREATE TABLE public (
 	primary key(publicIndex)
 );
 
-USE puffinpowerDB;
-
 CREATE TABLE notes (
 	notesIndex INT AUTO_INCREMENT NOT NULL,
     puffinName VARCHAR(100) NOT NULL,
     userName VARCHAR(100) NOT NULL,
     notes TEXT NOT NULL,
 	primary key (notesIndex),
-    FOREIGN KEY (puffinName) REFERENCES puffins(puffinName),
+    FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex),
     FOREIGN KEY (userName) REFERENCES users(userName)
+);
+
+CREATE TABLE imageurls (
+	imgIndex INT AUTO_INCREMENT NOT NULL,
+    imgurl VARCHAR(255),
+    artistName VARCHAR(255),
+	primary key(imgIndex),
+    FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex))
 );
