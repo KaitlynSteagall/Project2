@@ -4,7 +4,6 @@ var db = require("../models");
 //  homepage (login, public data submission)
 //  display specific penguin data
 //  display specific researcher data
-//  display all notes
 //  display all penguins
 //  display image thumbnails, which can be blown up into modals
 //  admin access: add/drop users, approve/reject submissions, add penguins
@@ -27,23 +26,14 @@ module.exports = function(app) {
       });
   });
 
-  // load specific user's page, notes, some random images of that puff
-  app.get("/users/:id", (request, response) => {
-    db.users.findOne({ where: { id: request.params.id } }).then(targetUser => {
-      response.render("example", {
-        example: targetUser //"example" is the name of the handlebars file
-      });
-    });
-  });
-
   // load admin page
   app.get("/admin", (request, response) => {
-    response.render("adminPage");
+    response.render("level1home");
   });
 
   // load researcher page
   app.get("/researcher", (request, response) => {
-    response.render("researcherPage");
+    response.render("level2home");
   });
 
   // load image page: all images for specific puffin
@@ -51,7 +41,7 @@ module.exports = function(app) {
     db.images
       .findAll({ where: { puffinId: request.params.id } })
       .then(imagesReturned => {
-        response.render("images", {
+        response.render("imageThumbs", {
           images: imagesReturned
         });
       });

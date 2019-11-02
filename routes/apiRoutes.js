@@ -20,7 +20,7 @@ module.exports = function(app) {
   app.get("/api/puffins/:id", (request, response) => {
     db.Puffin.findOne({
       where: {
-        id: request.params.id
+        puffinIndex: request.params.id
       }
     }).then(puffinFromDB => {
       response.json(puffinFromDB);
@@ -35,10 +35,10 @@ module.exports = function(app) {
   });
 
   // get particular user
-  app.get("/api/puffins/:id", (request, response) => {
+  app.get("/api/users/:id", (request, response) => {
     db.User.findOne({
       where: {
-        id: request.params.id
+        userIndex: request.params.id
       }
     }).then(userFromDB => {
       response.json(userFromDB);
@@ -49,7 +49,10 @@ module.exports = function(app) {
   app.get("/api/notes/:puffID", (request, response) => {
     db.Notes.findAll({
       where: {
-        puffinKey: request.params.puffID
+        puffinIndex: request.params.puffID
+      },
+      order: {
+        createdAt: "ASC"
       }
     }).then(noteDB => {
       response.json(noteDB);
@@ -79,18 +82,19 @@ module.exports = function(app) {
   //----------------
 
   // Delete functions are restricted to admin access
-  // delete puffin
-  app.delete("/api/puffin/:id", (request, response) => {
-    db.Puffin.destroy({ where: { id: request.params.id } }).then(
+
+  // delete user
+  app.delete("/api/user/:id", (request, response) => {
+    db.User.destroy({ where: { userIndex: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
       }
     );
   });
 
-  // delete user
-  app.delete("/api/user/:id", (request, response) => {
-    db.User.destroy({ where: { id: request.params.id } }).then(
+  // delete entry from public database
+  app.delete("/api/public/:id", (request, response) => {
+    db.Public.destroy({ where: { publicIndex: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
       }
