@@ -70,10 +70,10 @@ const API = {
 };
 
 $("#signinButton").on("click", function() {
-  var loginUsername = $("username")
+  var loginUsername = $("#username")
     .val()
     .trim();
-  var loginUserPassword = $("userPassword")
+  var loginUserPassword = $("#userPassword")
     .val()
     .trim();
   var userEnteredInfo = {
