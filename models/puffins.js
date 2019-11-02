@@ -1,20 +1,21 @@
 module.exports = function(sequelize, DataTypes) {
   var Puffins = sequelize.define("Puffins", {
     puffinIndex: {
-      Type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     puffinName: {
-      Type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: true
     },
     gender: {
-      Type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     age: {
-      Type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   });

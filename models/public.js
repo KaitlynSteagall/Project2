@@ -1,20 +1,21 @@
 module.exports = function(sequelize, DataTypes) {
   var Public = sequelize.define("Public", {
     publicIndex: {
-      Type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     publicName: {
-      Type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     comments: {
-      Type: DataTypes.TEXT,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     photos: {
-      Type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: true
     }
   });

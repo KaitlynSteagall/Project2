@@ -1,22 +1,20 @@
 module.exports = function(sequelize, DataTypes) {
   var Imageurls = sequelize.define("Imageurls", {
     imgIndex: {
-      Type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     imgurl: {
-      Type: DataTypes.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     artistName: {
-      Type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
-    puffinIndex: {
-      Type: DataTypes.INTEGER,
-      allowNull: false
-    }
+    puffinIndex: DataTypes.INTEGER
   });
 
   Imageurls.associate = function(models) {
