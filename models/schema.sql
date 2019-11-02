@@ -8,6 +8,8 @@ CREATE TABLE users (
     userName VARCHAR(100) NOT NULL,
     passwordName VARCHAR(100) NOT NULL,
     accessLevel INT NOT NULL,
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+	created_at TIMESTAMP NOT NULL,
 	primary key(userIndex)
 );
 
@@ -32,7 +34,7 @@ CREATE TABLE notes (
     notes TEXT NOT NULL,
     puffinIndex INT NOT NULL,
 	primary key (notesIndex),
-    FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex),
+    FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex)
 );
 
 CREATE TABLE imageurls (

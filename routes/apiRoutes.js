@@ -36,13 +36,19 @@ module.exports = function(app) {
 
   // get particular user
   app.get("/api/users/:id", (request, response) => {
-    db.User.findOne({
+    console.log('we are in users id route');
+    db.Users.findOne({
       where: {
         userName: request.params.id
       }
-    }).then(userFromDB => {
-      response.json(userFromDB);
-    });
+    })
+      .then(userFromDB => {
+        console.log("found user: ", userFromDB);
+        response.json(userFromDB);
+      })
+      .catch(err => {
+        console.log("user id route err is: ", err);
+      });
   });
 
   // get notes by puffin id
@@ -102,7 +108,7 @@ module.exports = function(app) {
         publicIndex: request.params.id
       }
     }).then(publicObject => {
-      pushPublicPuffin(dataObject, puffinID)
+      pushPublicPuffin(dataObject, puffinID);
     });
   });
 
