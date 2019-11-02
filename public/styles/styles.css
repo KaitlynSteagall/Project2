@@ -3,7 +3,7 @@
 }
 
 body {
-  background-image: url("./assets/images/puffinbackground.jpg");
+  background-image: url("../images/puffinbackground.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   /* opacity: 0.1; */

@@ -30,7 +30,7 @@
 
 <div class="container" style="background-color:rgba(255, 255, 255, 0.766)">
   <div class="row my-5">
-    
+
     <form class="col-lg-5 col-xs-5 my-5">
 
       <h3>Help us Perform Research</h3>
@@ -64,32 +64,32 @@
       <div class="carousel-inner">
 
         <div class="carousel-item active">
-          <img src="./assets/images/alex-makarov-jnZ5fTnn0i8-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
+          <img src="./images/alex-makarov-jnZ5fTnn0i8-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
             alt="Puffins nuzzling">
         </div>
 
         <div class="carousel-item">
-          <img src="./assets/images/jonatan-pie-8oEuGJ-Uva0-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
+          <img src="./images/jonatan-pie-8oEuGJ-Uva0-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
             alt="Puffins in grass">
         </div>
 
         <div class="carousel-item">
-          <img src="./assets/images/liudmila-shuvalova-ZHYXoJDrQ0M-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
+          <img src="./images/liudmila-shuvalova-ZHYXoJDrQ0M-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
             alt="Puffin with fish">
         </div>
 
         <div class="carousel-item">
-          <img src="./assets/images/m-zonderling-COMlc1Z23N4-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
+          <img src="./images/m-zonderling-COMlc1Z23N4-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
             alt="Puffins on rocks">
         </div>
 
         <div class="carousel-item">
-          <img src="./assets/images/ray-hennessy-PHnBeYvpWgA-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
+          <img src="./images/ray-hennessy-PHnBeYvpWgA-unsplash.jpg" class="d-block w-100 mt-auto mb-3"
             alt="Puffin flying">
         </div>
 
         <div class="carousel-item">
-          <img src="./assets/images/sarah-kilian-vf0lyNg41lk-unsplash.jpg" class="d-block w-100 mt-2 mb-3"
+          <img src="./images/sarah-kilian-vf0lyNg41lk-unsplash.jpg" class="d-block w-100 mt-2 mb-3"
             alt="Puffins fighting">
         </div>
 
@@ -214,10 +214,49 @@
 
       <button type="button" class="btn align-right" data-dismiss="modal"
         style="background-color:aquamarine">Close</button>
-        
+
     </div>
   </div>
 </div>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBLnaCoI1DzsO_7yccSzmsbb4vGVAN9iIM",
+    authDomain: "puffinpower-90f79.firebaseapp.com",
+    databaseURL: "https://puffinpower-90f79.firebaseio.com",
+    projectId: "puffinpower-90f79",
+    storageBucket: "puffinpower-90f79.appspot.com",
+    messagingSenderId: "934243007516",
+    appId: "1:934243007516:web:b8d887b235a3578a2c33d9"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  //sign in
+  auth.signInWithEmailAndPassword(email, password).catch(function (error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log("inside sign in auth error message");
+  });
+  //log out
+  auth.signOut().then(function () {
+    // Sign-out successful.
+    console.log("inside sign out auth success");
+  }).catch(function (error) {
+    // An error happened.
+    console.log("inside sign out auth error message");
+  });
+  $("#signinButton").on('click', function () {
+    var email = $("#userEmail").val();
+    var password = $("#userPassword").val();
+    signInWithEmailAndPassword(email, password);
+  });
+  $("#signoutButton").on('click', function () {
+    signOut();
+  })
+</script>
 
 {{!-- EXAMPLE CODE THAT I MAY REFER TO --}}
 
