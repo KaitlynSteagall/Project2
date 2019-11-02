@@ -219,22 +219,6 @@
   </div>
 </div>
 
-<script>
-  $("#signinButton").on("click", function() {
-    var loginUsername = $("username").val().trim();
-    var loginUserPassword = $("userPassword").val().trim();
-    var userEnteredInfo = {
-      userName: loginUsername,
-      passwordName: loginUserPassword
-    }
-    $.post("/api/characters", newCharacter)
-       .then(function(data) {
-         console.log("add.html", data);
-         alert("Adding character...");
-       });
-  })
-</script>
-
 {{!-- EXAMPLE CODE THAT I MAY REFER TO --}}
 
 {{!-- <div id="home">

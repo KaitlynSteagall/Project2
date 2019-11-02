@@ -69,6 +69,22 @@ const API = {
   }
 };
 
+$("#signinButton").on("click", function() {
+  var loginUsername = $("username")
+    .val()
+    .trim();
+  var loginUserPassword = $("userPassword")
+    .val()
+    .trim();
+  var userEnteredInfo = {
+    userName: loginUsername,
+    passwordName: loginUserPassword
+  };
+  $.get("/api/users/" + loginUsername, userEnteredInfo).then(function(data) {
+    console.log(data);
+  });
+});
+
 // refreshExamples gets new examples from the db and repopulates the list
 var refreshExamples = function() {
   API.getExamples().then(function(data) {
