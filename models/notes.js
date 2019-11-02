@@ -1,18 +1,16 @@
 module.exports = function(sequelize, DataTypes) {
   var Notes = sequelize.define("Notes", {
     notesIndex: {
-      Type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     notes: {
-      Type: DataTypes.TEXT,
+      type: DataTypes.TEXT,
       allowNull: false
     },
-    puffinIndex: {
-      Type: DataTypes.INTEGER,
-      allowNull: false
-    }
+    puffinIndex: DataTypes.INTEGER
   });
 
   Notes.associate = function(models) {

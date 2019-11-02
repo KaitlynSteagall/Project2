@@ -1,20 +1,21 @@
 module.exports = function(sequelize, DataTypes) {
   var Users = sequelize.define("Users", {
     userIndex: {
-      Type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     userName: {
-      Type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     passwordName: {
-      Type: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     accessLevel: {
-      Type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   });
