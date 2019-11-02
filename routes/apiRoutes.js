@@ -102,8 +102,14 @@ module.exports = function(app) {
         publicIndex: request.params.id
       }
     }).then(publicObject => {
-      pushPublicPuffin(dataObject, puffinID)
+      const dataObject = {
+        imageurl: publicObject.photos,
+        name: publicObject.publicName,
+        text: publicObject.comments
+      };
+      pushPublicPuffin(dataObject, puffinID);
     });
+    response.json(publicObject);
   });
 
   //----------------
@@ -152,18 +158,18 @@ module.exports = function(app) {
   //  functions
   //----------------
 
-  // password check
-  function isPasswordValid(incomingPassword, userObject) {
-    let actualPassword = userObject.passwordName;
-    if (incomingPassword === actualPassword) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   // move data from public to puffin DB
   function pushPublicPuffin(dataObject, puffinID) {
-
+    // add any notes to the note db
+    db.Note.create({
+      notes: dataObject.text,
+      puffinIndex: puffinID
+    });
+    // add any images to the image db
+    db.Imageurls.create({
+      imgurl: dataObject.imgurl,
+      artistName: dataObject.name,
+      puffinIndex: puffinID
+    });
   }
 };
