@@ -1,3 +1,11 @@
 .list-group-item {
   line-height: 2.5;
 }
+
+body {
+  background-image: url("./assets/images/puffinbackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* opacity: 0.1; */
+  /* background-position: cover; */
+}
