@@ -1,19 +1,18 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+var $newUserName = $("#addUsername");
+var $newUserPassword = $("#addUserPassword");
+var $newUserAccessLevel = $("#addUserAccessLevel");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  saveNewUser: function(addNewUserData) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
+      url: "api/users",
+      data: JSON.stringify(addNewUserData)
     });
   },
   getExamples: function() {
@@ -61,16 +60,23 @@ var refreshExamples = function() {
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-var handleFormSubmit = function(event) {
+var saveUser = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  var userInfo = {
+    newUsername: $newUserName.val().trim(),
+    newUserPassword: $newUserPassword.val().trim(),
+    newUserAccessLevel: $newUserAccessLevel.val().trim()
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
+  if (
+    !(
+      userInfo.newUsername &&
+      userInfo.newUserPassword &&
+      userInfo.newUserAccessLevel
+    )
+  ) {
+    alert("You must enter a username, password and access level!");
     return;
   }
 
@@ -95,5 +101,6 @@ var handleDeleteBtnClick = function() {
 };
 
 // Add event listeners to the submit and delete buttons
+$submitNewUser.on("click", saveUser);
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
