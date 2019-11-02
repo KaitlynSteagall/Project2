@@ -59,14 +59,50 @@ module.exports = function(app) {
     });
   });
 
+  // get public posts for review
+  app.get("/api/public", (request, response) => {
+    db.Public.findAll({
+      order: {
+        createdAt: "DESC"
+      }
+    }).then(publicDB => {
+      response.json(publicDB);
+    });
+  });
+
+  // validate user login
+  app.get("/api/checkuser", (request, response) => {
+    const nameToCheck = request.body.userName;
+    const passToCheck = request.body.userPassword;
+    const responseObject = {
+      isValid: false,
+      accessLevel: 0
+    };
+    db.User.findOne({
+      where: {
+        userName: nameToCheck
+      }
+    }).then(userFromDB => {
+      if (passToCheck === userFromDB.passwordName) {
+        responseObject.isValid = true;
+        responseObject.accessLevel = userFromDB.accessLevel;
+      }
+      response.json(responseObject);
+    });
+  });
+
   //----------------
   //  UPDATE routes
   //----------------
 
   // get information from selected public post, move it to puffin table
-  app.post("/api/public/:id", (request, response) => {
-    db.Public.create(request.body).then(pushedPuffin => {
-      response.json(pushedPuffin);
+  app.get("/api/public/id", (request, response) => {
+    db.Public.findOne({
+      where: {
+        publicIndex: request.params.id
+      }
+    }).then(publicObject => {
+      pushPublicPuffin(dataObject, puffinID)
     });
   });
 
@@ -124,5 +160,10 @@ module.exports = function(app) {
     } else {
       return false;
     }
+  }
+
+  // move data from public to puffin DB
+  function pushPublicPuffin(dataObject, puffinID) {
+
   }
 };
