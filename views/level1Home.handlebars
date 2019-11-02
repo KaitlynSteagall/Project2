@@ -27,8 +27,6 @@
   <div class="row my-5">
     <div class="col-lg-5 col-xs-5 my-5">
       <button class="btn btn-primary" data-toggle="modal" href="#addUser">Add New User</button>
-
-
     </div>
 
     <div id="carouselExampleControls" class="col-lg-7 col-xs-7 carousel slide my-auto" data-ride="carousel">
@@ -79,12 +77,16 @@
           <h3>Add a user to the database</h3>
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="username" class="form-control" id="username" aria-describedby="usernameHelp"
+            <input type="username" class="form-control" id="addUsername" aria-describedby="usernameHelp"
               placeholder="Enter Username">
           </div>
           <div class="form-group">
             <label for="userPassword">Password</label>
-            <input type="password" class="form-control" id="userPassword" placeholder="Password">
+            <input type="password" class="form-control" id="addUserPassword" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <label for="userAccessLevel">Password</label>
+            <input type="accessLevel" class="form-control" id="addUserAccessLevel" placeholder="User Access Level">
           </div>
         </form>
       </div>
