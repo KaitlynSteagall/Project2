@@ -219,45 +219,6 @@
   </div>
 </div>
 
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyBLnaCoI1DzsO_7yccSzmsbb4vGVAN9iIM",
-    authDomain: "puffinpower-90f79.firebaseapp.com",
-    databaseURL: "https://puffinpower-90f79.firebaseio.com",
-    projectId: "puffinpower-90f79",
-    storageBucket: "puffinpower-90f79.appspot.com",
-    messagingSenderId: "934243007516",
-    appId: "1:934243007516:web:b8d887b235a3578a2c33d9"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  //sign in
-  auth.signInWithEmailAndPassword(email, password).catch(function (error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log("inside sign in auth error message");
-  });
-  //log out
-  auth.signOut().then(function () {
-    // Sign-out successful.
-    console.log("inside sign out auth success");
-  }).catch(function (error) {
-    // An error happened.
-    console.log("inside sign out auth error message");
-  });
-  $("#signinButton").on('click', function () {
-    var email = $("#userEmail").val();
-    var password = $("#userPassword").val();
-    signInWithEmailAndPassword(email, password);
-  });
-  $("#signoutButton").on('click', function () {
-    signOut();
-  })
-</script>
-
 {{!-- EXAMPLE CODE THAT I MAY REFER TO --}}
 
 {{!-- <div id="home">
