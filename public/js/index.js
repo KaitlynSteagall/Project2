@@ -1,10 +1,10 @@
 // Get references to page elements
-var $newUserName = $("#addUsername");
-var $newUserPassword = $("#addUserPassword");
-var $newUserAccessLevel = $("#addUserAccessLevel");
+const $newUserName = $("#addUsername");
+const $newUserPassword = $("#addUserPassword");
+const $newUserAccessLevel = $("#addUserAccessLevel");
 
 // The API object contains methods for each kind of request we'll make
-var API = {
+const API = {
   saveNewUser: function(addNewUserData) {
     return $.ajax({
       headers: {
@@ -15,15 +15,55 @@ var API = {
       data: JSON.stringify(addNewUserData)
     });
   },
-  getExamples: function() {
+  saveNewPuffin: function(addNewPuffinData) {
     return $.ajax({
-      url: "api/examples",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/puffins",
+      data: JSON.stringify(addNewPuffinData)
+    });
+  },
+  getOnePuffin: function(id) {
+    return $.ajax({
+      url: "/api/puffins/" + id,
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  getAllPuffins: function() {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "/api/puffins/",
+      type: "GET"
+    });
+  },
+  getOneUser: function(id) {
+    return $.ajax({
+      url: "/api/users/" + id,
+      type: "GET"
+    });
+  },
+  getAllUsers: function() {
+    return $.ajax({
+      url: "/api/users/",
+      type: "GET"
+    });
+  },
+  getNotes: function(id) {
+    return $.ajax({
+      url: "/api/notes/" + id,
+      type: "GET"
+    });
+  },
+  deleteUser: function(id) {
+    return $.ajax({
+      url: "/api/users/" + id,
+      type: "DELETE"
+    });
+  },
+  deletePublicEntry: function(id) {
+    return $.ajax({
+      url: "/api/public/" + id,
       type: "DELETE"
     });
   }

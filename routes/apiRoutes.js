@@ -6,9 +6,9 @@
 const db = require("../models");
 
 module.exports = function(app) {
-  //-------------
-  //  GET routes
-  //-------------
+  //---------------
+  //  READ routes
+  //---------------
   // get all puffins
   app.get("/api/puffins", (request, response) => {
     db.Puffin.findAll({}).then(puffinsFromDB => {
@@ -38,7 +38,7 @@ module.exports = function(app) {
   app.get("/api/users/:id", (request, response) => {
     db.User.findOne({
       where: {
-        userIndex: request.params.id
+        userName: request.params.id
       }
     }).then(userFromDB => {
       response.json(userFromDB);
@@ -59,9 +59,20 @@ module.exports = function(app) {
     });
   });
 
-  //--------------
+  //----------------
+  //  UPDATE routes
+  //----------------
+
+  // get information from selected public post, move it to puffin table
+  app.post("/api/public/:id", (request, response) => {
+    db.Public.create(request.body).then(pushedPuffin => {
+      response.json(pushedPuffin);
+    });
+  });
+
+  //----------------
   //  CREATE routes
-  //--------------
+  //----------------
 
   // Push new puffin to database
   app.post("/api/puffins", (request, response) => {
@@ -100,4 +111,18 @@ module.exports = function(app) {
       }
     );
   });
+
+  //----------------
+  //  functions
+  //----------------
+
+  // password check
+  function isPasswordValid(incomingPassword, userObject) {
+    let actualPassword = userObject.passwordName;
+    if (incomingPassword === actualPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 };
