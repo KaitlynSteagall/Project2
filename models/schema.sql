@@ -18,6 +18,8 @@ CREATE TABLE puffins (
     puffinName VARCHAR(100),
     gender VARCHAR(100),
     age INT,
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+	created_at TIMESTAMP NOT NULL,
 	primary key(puffinIndex)
 );
 
@@ -26,6 +28,8 @@ CREATE TABLE public (
     publicName VARCHAR(100),
     comments TEXT,
     photos VARCHAR(2048),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+	created_at TIMESTAMP NOT NULL,
 	primary key(publicIndex)
 );
 
@@ -33,6 +37,8 @@ CREATE TABLE notes (
 	notesIndex INT AUTO_INCREMENT NOT NULL,
     notes TEXT NOT NULL,
     puffinIndex INT NOT NULL,
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+	created_at TIMESTAMP NOT NULL,
 	primary key (notesIndex),
     FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex)
 );
@@ -42,6 +48,8 @@ CREATE TABLE imageurls (
     imgurl VARCHAR(255),
     artistName VARCHAR(255),
     puffinIndex INT NOT NULL,
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+	created_at TIMESTAMP NOT NULL,
 	primary key(imgIndex),
     FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex)
 );
