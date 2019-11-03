@@ -18,8 +18,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   });
   return Public;
 };

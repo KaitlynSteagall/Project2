@@ -18,8 +18,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   });
 
   Puffins.associate = function(models) {

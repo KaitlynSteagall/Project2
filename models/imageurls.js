@@ -15,8 +15,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     puffinIndex: DataTypes.INTEGER,
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   });
 
   Imageurls.associate = function(models) {
