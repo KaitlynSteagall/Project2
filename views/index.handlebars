@@ -29,7 +29,7 @@
 </nav>
 
 <div class="container" style="background-color:rgba(255, 255, 255, 0.766)">
-  <div class="row my-5">
+  <div class="row my-4">
 
     <form class="col-lg-5 col-xs-5 my-5">
 
@@ -46,27 +46,29 @@
 
       <div class="custom-file mb-3">
         <input type="file" class="custom-file" id="validatedCustomFile">
-        <label class="custom-file-label" for="validatedCustomFile">Choose File (optional)</label>
+        <label class="custom-file-label" for="validatedCustomFile">Choose File</label>
       </div>
 
       <div>
-        <div class="input-group mb-2">
-          {{!-- <input type="text" class="form-control" id="cameraDisplayDiv" placeholder="Take Picture"> --}}
-          <canvas id="canvas" placeholder="Take Picture">
+        <div class="input-group mb-2 ">
+          <canvas id="canvas" style="background-color: white; border-radius: 5px 0 0 5px;">
             <!-- we put images here to manipulate them. this div carries display:none so the user never sees it -->
           </canvas>
-          </input>
           <div class="input-group-append">
             <div id="openCameraBtn" class="input-group-text" data-toggle="modal" href="#takePicturePage">
               <span><i class="fas fa-camera"></i></span>
+            </div>
+            <div id="deletePicBtn" class="input-group-text" data-toggle="modal" href="#takePicturePage">
+              <span><i class="fas fa-trash-alt"></i></span>
             </div>
           </div>
         </div>
       </div>
 
       <div class="mb-3">
-        <textarea class="form-control" id="validationTextarea" style="height: 14rem;" placeholder="Tell us about your observation. Ex: Where did you see the puffin? What were it's surroundings? 
-          What was it doing? For how long?" required></textarea>
+        <textarea class="form-control" id="validationTextarea" style="height: 11rem;"
+          placeholder="Tell us about your observation. Ex: Where did you see the puffin? What were it's surroundings? What was it doing? For how long?"
+          required></textarea>
       </div>
 
       <button class="btn" type="submit" style="background-color: aquamarine;">Submit</button>
@@ -237,25 +239,21 @@
   <div class="modal-dialog modal-md modal-dialog-centered" role="document">
     <div class="modal-content">
 
-      <div class="modal-body">
-
+      <div class="modal-body mx-auto">
+        {{!-- <!-- this div holds the video stream once we connect to the camera --> --}}
         <div class="camera">
           <video id="video">Video stream not available.</video>
-          {{!-- <!-- this div holds the video stream once we connect to the camera --> --}}
-          {{!-- <button id="takePictureBtn">Click to Capture!</button> --}}
-          {{!-- <!-- this grabs the current frame from the stream when clicked --> --}}
-        </div> 
-        {{!-- <canvas id="canvas">
-          <!-- we put images here to manipulate them. this div carries display:none so the user never sees it -->
-        </canvas> --}}
-        <button type="button" id="takePictureBtn" class="btn align-right" data-dismiss="modal"
-          style="background-color:aquamarine">
-          Take New Photo
-        </button>
-        <button type="button" class="btn align-right" data-dismiss="modal" style="background-color:aquamarine">
-          Submit Photo
-        </button>
+        </div>
       </div>
+      {{!-- <!-- this grabs the current frame from the stream when clicked --> --}}
+      <button type="button" id="takePictureBtn" class="btn align-left" data-dismiss="modal"
+        style="background-color:aquamarine">
+        Take New Photo
+      </button>
+      <button type="button" id="takePictureBtn" class="btn align-right" data-dismiss="modal"
+        style="background-color:aquamarine">
+        Cancel
+      </button>
     </div>
   </div>
 </div>
@@ -263,7 +261,7 @@
 <script type="text/javascript">
   // wrap in an anon function to control when it fires & keep variable overhead down
   (function () {
-    const width = 320; // photo width locked to this. can be set to whatever we like
+    const width = 300; // photo width locked to this. can be set to whatever we like
     let height = 0; // this one is variable, will be auto-computed from camera dimensions
     let streaming = false; // current state of stream
     let video; // after pageload, we define this as a ref to the <video> div
@@ -359,7 +357,7 @@
 
 </script>
 
-{{!-- EXAMPLE CODE THAT I MAY REFER TO --}}
+{{!-- EXAMPLE HANDLEBARS WE CAN REFER TO --}}
 
 {{!-- <div id="home">
   <div class="container">
