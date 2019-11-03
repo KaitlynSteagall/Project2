@@ -119,10 +119,12 @@ module.exports = function(app) {
   });
 
   // validate user login
-  app.get("/api/checkuser", (request, response) => {
+  app.post("/api/checkuser", (request, response) => {
+    console.log("object going to server is: ", request.body);
     const nameToCheck = request.body.userName;
-    const passToCheck = request.body.userPassword;
-    const responseObject = {
+    const passToCheck = request.body.passwordName;
+    console.log("validation is checking against: ", nameToCheck, passToCheck)
+    let responseObject = {
       isValid: false,
       accessLevel: 0
     };
@@ -131,10 +133,18 @@ module.exports = function(app) {
         userName: nameToCheck
       }
     }).then(userFromDB => {
-      if (passToCheck === userFromDB.passwordName) {
+      console.log("sequelize found:", userFromDB.dataValues)
+      if (passToCheck === userFromDB.dataValues.passwordName) {
         responseObject.isValid = true;
-        responseObject.accessLevel = userFromDB.accessLevel;
-        userAuthenticationLevel = userFromDB.accessLevel;
+        responseObject.accessLevel = userFromDB.dataValues.accessLevel;
+        userAuthenticationLevel = userFromDB.dataValues.accessLevel;
+      }
+      if (userFromDB.dataValues.accessLevel === 1) {
+        console.log("we got admin access, should be sending page 1")
+        response.render("level1Home");
+      } else if (userFromDB.dataValues.accessLevel === 2) {
+        console.log("we got researcher access, should be sending page 2")
+        response.render("level2Home");
       }
       response.json(responseObject);
     });
