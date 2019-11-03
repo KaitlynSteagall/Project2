@@ -17,7 +17,9 @@ module.exports = function(sequelize, DataTypes) {
     photos: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   });
   return Public;
 };

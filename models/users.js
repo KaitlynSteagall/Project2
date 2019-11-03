@@ -17,7 +17,9 @@ module.exports = function(sequelize, DataTypes) {
     accessLevel: {
       type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   });
   return Users;
 };

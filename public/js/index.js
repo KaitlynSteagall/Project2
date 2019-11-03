@@ -53,7 +53,7 @@ const API = {
   checkUser: function(currentUserData) {
     return $.ajax({
       url: "api/checkuser",
-      type: "GET",
+      type: "POST",
       data: currentUserData
     });
   },
@@ -93,14 +93,10 @@ $("#signinButton").on("click", event => {
       alert("Sorry, that password doesn't match our records!");
     } else if (infoFromServer.accessLevel === 1) {
       alert("yay you're an admin");
-      // create some kind of local storage to keep us logged in for the rest of the session
-      // log us into admin frontpage
-      $.get("/admin");
+      // TODO: create some kind of local storage to keep us logged in long-term
     } else if (infoFromServer.accessLevel === 2) {
       alert("yay you're a researcher");
       // again with the local storage
-      // and send us to the researcher frontpage
-      $.get("/researcher");
     }
   });
 });

@@ -17,7 +17,9 @@ module.exports = function(sequelize, DataTypes) {
     age: {
       type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE
   });
 
   Puffins.associate = function(models) {
