@@ -6,7 +6,7 @@
 const db = require("../models");
 
 // this is a session variable that keeps track of whether the user is logged in
-let userAuthenticationLevel = 0;
+// let userAuthenticationLevel = 0;
 
 //----------------
 //  functions
@@ -27,25 +27,25 @@ function pushPublicPuffin(dataObject, puffinID) {
   });
 }
 
-function userIsAdmin(req, res, next) {
-  // middleware function to check for admin status
-  if (userAuthenticationLevel === 1) {
-    return next();
-  } else {
-    alert("Authorization denied!");
-    res.redirect("/");
-  }
-}
+// function userIsAdmin(req, res, next) {
+//   // middleware function to check for admin status
+//   if (userAuthenticationLevel === 1) {
+//     return next();
+//   } else {
+//     alert("Authorization denied!");
+//     res.redirect("/");
+//   }
+// }
 
-function userIsResearcher(req, res, next) {
-  // middleware function to check for researcher status
-  if (userAuthenticationLevel === 2 || userAuthenticationLevel === 1) {
-    return next();
-  } else {
-    alert("Authorization denied!");
-    res.redirect("/");
-  }
-}
+// function userIsResearcher(req, res, next) {
+//   // middleware function to check for researcher status
+//   if (userAuthenticationLevel === 2 || userAuthenticationLevel === 1) {
+//     return next();
+//   } else {
+//     alert("Authorization denied!");
+//     res.redirect("/");
+//   }
+// }
 
 module.exports = function(app) {
   //---------------
@@ -53,14 +53,14 @@ module.exports = function(app) {
   //---------------
 
   // get all puffins
-  app.get("/api/puffins", userIsResearcher, (request, response) => {
+  app.get("/api/puffins", (request, response) => {
     db.Puffin.findAll({}).then(puffinsFromDB => {
       response.json(puffinsFromDB);
     });
   });
 
   // get particular puffin
-  app.get("/api/puffins/:id", userIsResearcher, (request, response) => {
+  app.get("/api/puffins/:id", (request, response) => {
     db.Puffin.findOne({
       where: {
         puffinIndex: request.params.id
@@ -71,14 +71,14 @@ module.exports = function(app) {
   });
 
   // get all users
-  app.get("/api/users", userIsAdmin, (request, response) => {
+  app.get("/api/users", (request, response) => {
     db.User.findAll({}).then(usersFromDB => {
       response.json(usersFromDB);
     });
   });
 
   // get particular user
-  app.get("/api/users/:id", userIsAdmin, (request, response) => {
+  app.get("/api/users/:id", (request, response) => {
     db.Users.findOne({
       where: {
         userName: request.params.id
@@ -94,7 +94,7 @@ module.exports = function(app) {
   });
 
   // get notes by puffin id
-  app.get("/api/notes/:puffID", userIsResearcher, (request, response) => {
+  app.get("/api/notes/:puffID", (request, response) => {
     db.Notes.findAll({
       where: {
         puffinIndex: request.params.puffID
@@ -141,7 +141,7 @@ module.exports = function(app) {
   });
 
   // get information from selected public post, move it to puffin table
-  app.get("/api/public/id", userIsResearcher, (request, response) => {
+  app.get("/api/public/id", (request, response) => {
     db.Public.findOne({
       where: {
         publicIndex: request.params.id
@@ -168,14 +168,14 @@ module.exports = function(app) {
   //----------------
 
   // Push new puffin to database
-  app.post("/api/puffins", userIsResearcher, (request, response) => {
+  app.post("/api/puffins", (request, response) => {
     db.Puffin.create(request.body).then(pushedPuffin => {
       response.json(pushedPuffin);
     });
   });
 
   // Push new user to database
-  app.post("/api/users", userIsAdmin, (request, response) => {
+  app.post("/api/users", (request, response) => {
     db.User.create(request.body).then(pushedUser => {
       response.json(pushedUser);
     });
@@ -188,7 +188,7 @@ module.exports = function(app) {
   // Delete functions are restricted to admin access
 
   // delete user
-  app.delete("/api/user/:id", userIsAdmin, (request, response) => {
+  app.delete("/api/user/:id", (request, response) => {
     db.User.destroy({ where: { userIndex: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
@@ -197,7 +197,7 @@ module.exports = function(app) {
   });
 
   // delete entry from public database
-  app.delete("/api/public/:id", userIsResearcher, (request, response) => {
+  app.delete("/api/public/:id", (request, response) => {
     db.Public.destroy({ where: { publicIndex: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
