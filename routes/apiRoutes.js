@@ -5,10 +5,53 @@
 // get models from sequelize files
 const db = require("../models");
 
+// this is a session variable that keeps track of whether the user is logged in
+// let userAuthenticationLevel = 0;
+
+//----------------
+//  functions
+//----------------
+
+// move data from public to puffin DB
+function pushPublicPuffin(dataObject, puffinID) {
+  // add any notes to the note db
+  db.Note.create({
+    notes: dataObject.text,
+    puffinIndex: puffinID
+  });
+  // add any images to the image db
+  db.Imageurls.create({
+    imgurl: dataObject.imgurl,
+    artistName: dataObject.name,
+    puffinIndex: puffinID
+  });
+}
+
+// function userIsAdmin(req, res, next) {
+//   // middleware function to check for admin status
+//   if (userAuthenticationLevel === 1) {
+//     return next();
+//   } else {
+//     alert("Authorization denied!");
+//     res.redirect("/");
+//   }
+// }
+
+// function userIsResearcher(req, res, next) {
+//   // middleware function to check for researcher status
+//   if (userAuthenticationLevel === 2 || userAuthenticationLevel === 1) {
+//     return next();
+//   } else {
+//     alert("Authorization denied!");
+//     res.redirect("/");
+//   }
+// }
+
 module.exports = function(app) {
   //---------------
   //  READ routes
   //---------------
+
   // get all puffins
   app.get("/api/puffins", (request, response) => {
     db.Puffin.findAll({}).then(puffinsFromDB => {
@@ -91,6 +134,7 @@ module.exports = function(app) {
       if (passToCheck === userFromDB.passwordName) {
         responseObject.isValid = true;
         responseObject.accessLevel = userFromDB.accessLevel;
+        userAuthenticationLevel = userFromDB.accessLevel;
       }
       response.json(responseObject);
     });
@@ -160,23 +204,4 @@ module.exports = function(app) {
       }
     );
   });
-
-  //----------------
-  //  functions
-  //----------------
-
-  // move data from public to puffin DB
-  function pushPublicPuffin(dataObject, puffinID) {
-    // add any notes to the note db
-    db.Note.create({
-      notes: dataObject.text,
-      puffinIndex: puffinID
-    });
-    // add any images to the image db
-    db.Imageurls.create({
-      imgurl: dataObject.imgurl,
-      artistName: dataObject.name,
-      puffinIndex: puffinID
-    });
-  }
 };
