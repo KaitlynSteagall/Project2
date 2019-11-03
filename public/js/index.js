@@ -28,7 +28,7 @@ const API = {
   },
   getAllPuffins: function() {
     return $.ajax({
-      url: "/api/puffins/",
+      url: "/api/puffins",
       type: "GET"
     });
   },
@@ -46,13 +46,13 @@ const API = {
   },
   getAllUsers: function() {
     return $.ajax({
-      url: "/api/users/",
+      url: "/api/users",
       type: "GET"
     });
   },
   checkUser: function(currentUserData) {
     return $.ajax({
-      url: "api/checkuser/",
+      url: "api/checkuser",
       type: "GET",
       data: currentUserData
     });
@@ -95,12 +95,12 @@ $("#signinButton").on("click", event => {
       alert("yay you're an admin");
       // create some kind of local storage to keep us logged in for the rest of the session
       // log us into admin frontpage
-      $.get("/admin/");
+      $.get("/admin");
     } else if (infoFromServer.accessLevel === 2) {
       alert("yay you're a researcher");
       // again with the local storage
       // and send us to the researcher frontpage
-      $.get("/researcher/");
+      $.get("/researcher");
     }
   });
 });
