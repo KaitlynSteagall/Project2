@@ -36,7 +36,6 @@ module.exports = function(app) {
 
   // get particular user
   app.get("/api/users/:id", (request, response) => {
-    console.log('we are in users id route');
     db.Users.findOne({
       where: {
         userName: request.params.id
@@ -97,10 +96,6 @@ module.exports = function(app) {
     });
   });
 
-  //----------------
-  //  UPDATE routes
-  //----------------
-
   // get information from selected public post, move it to puffin table
   app.get("/api/public/id", (request, response) => {
     db.Public.findOne({
@@ -108,7 +103,7 @@ module.exports = function(app) {
         publicIndex: request.params.id
       }
     }).then(publicObject => {
-
+      // returns an object from the Public submission server
       const dataObject = {
         imageurl: publicObject.photos,
         name: publicObject.publicName,
@@ -119,6 +114,10 @@ module.exports = function(app) {
     });
     response.json(publicObject);
   });
+
+  //----------------
+  //  UPDATE routes
+  //----------------
 
   //----------------
   //  CREATE routes
