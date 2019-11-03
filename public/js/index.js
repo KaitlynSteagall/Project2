@@ -1,8 +1,3 @@
-// Get references to page elements
-const $newUserName = $("#addUsername");
-const $newUserPassword = $("#addUserPassword");
-const $newUserAccessLevel = $("#addUserAccessLevel");
-
 // The API object contains methods for each kind of request we'll make
 const API = {
   saveNewUser: function(addNewUserData) {
@@ -37,6 +32,12 @@ const API = {
       type: "GET"
     });
   },
+  promoteData: function(id) {
+    return $.ajax({
+      url: "/api/public/" + id,
+      type: "GET"
+    });
+  },
   getOneUser: function(id) {
     return $.ajax({
       url: "/api/users/" + id,
@@ -47,6 +48,13 @@ const API = {
     return $.ajax({
       url: "/api/users/",
       type: "GET"
+    });
+  },
+  checkUser: function(currentUserData) {
+    return $.ajax({
+      url: "api/checkuser/",
+      type: "GET",
+      data: currentUserData
     });
   },
   getNotes: function(id) {
@@ -69,60 +77,77 @@ const API = {
   }
 };
 
-$("#signinButton").on("click", function() {
-  var loginUsername = $("#username")
-    .val()
-    .trim();
-  var loginUserPassword = $("#userPassword")
-    .val()
-    .trim();
-  var userEnteredInfo = {
-    userName: loginUsername,
-    passwordName: loginUserPassword
+$("#signinButton").on("click", event => {
+  event.preventDefault();
+  const userEnteredInfo = {
+    userName: $("#username")
+      .val()
+      .trim(),
+    passwordName: $("#userPassword")
+      .val()
+      .trim()
   };
-  $.get("/api/users/" + loginUsername, userEnteredInfo).then(function(data) {
-    console.log(data);
+  API.checkUser(userEnteredInfo).then(infoFromServer => {
+    // the server will tell us if the password is good or not, and what access level we have
+    if (infoFromServer.isValid === false) {
+      alert("Sorry, that password doesn't match our records!");
+    } else if (infoFromServer.accessLevel === 1) {
+      alert("yay you're an admin");
+      // create some kind of local storage to keep us logged in for the rest of the session
+      // log us into admin frontpage
+      $.get("/admin/");
+    } else if (infoFromServer.accessLevel === 2) {
+      alert("yay you're a researcher");
+      // again with the local storage
+      // and send us to the researcher frontpage
+      $.get("/researcher/");
+    }
   });
 });
 
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
-      var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+// var refreshExamples = function() {
+//   API.getExamples().then(function(data) {
+//     var $examples = data.map(function(example) {
+//       var $a = $("<a>")
+//         .text(example.text)
+//         .attr("href", "/example/" + example.id);
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": example.id
-        })
-        .append($a);
+//       var $li = $("<li>")
+//         .attr({
+//           class: "list-group-item",
+//           "data-id": example.id
+//         })
+//         .append($a);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+//       var $button = $("<button>")
+//         .addClass("btn btn-danger float-right delete")
+//         .text("ｘ");
 
-      $li.append($button);
+//       $li.append($button);
 
-      return $li;
-    });
+//       return $li;
+//     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
-  });
-};
+//     $exampleList.empty();
+//     $exampleList.append($examples);
+//   });
+// };
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
-var saveUser = function(event) {
+// add new user to user DB on admin submission click
+$("#submitNewUser").on("click", event => {
   event.preventDefault();
 
-  var userInfo = {
-    newUsername: $newUserName.val().trim(),
-    newUserPassword: $newUserPassword.val().trim(),
-    newUserAccessLevel: $newUserAccessLevel.val().trim()
+  const userInfo = {
+    userName: $("#addUserName")
+      .val()
+      .trim(),
+    passwordName: $("#addUserPassword")
+      .val()
+      .trim(),
+    accessLevel: $("#addUserAccessLevel")
+      .val()
+      .trim()
   };
 
   if (
@@ -136,27 +161,19 @@ var saveUser = function(event) {
     return;
   }
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
+  API.saveNewUser(userInfo).then(returnData => {
+    console.log(returnData);
   });
-
-  $exampleText.val("");
-  $exampleDescription.val("");
-};
+});
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function() {
-  var idToDelete = $(this)
-    .parent()
-    .attr("data-id");
+// var handleDeleteBtnClick = function() {
+//   var idToDelete = $(this)
+//     .parent()
+//     .attr("data-id");
 
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
-  });
-};
-
-// Add event listeners to the submit and delete buttons
-$submitNewUser.on("click", saveUser);
-$submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+//   API.deleteExample(idToDelete).then(function() {
+//     refreshExamples();
+//   });
+// };
