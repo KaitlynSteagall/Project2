@@ -1,5 +1,3 @@
-{{!-- Needs handlebars-ified --}}
-
 <nav class="navbar navbar-expand-lg navbar-light mb-3" style="background-color:rgba(255, 255, 255, 0.766)">
   <div class="container">
 
@@ -25,8 +23,15 @@
 
 <div class="container" style="background-color:rgba(255, 255, 255, 0.766)">
   <div class="row my-5">
-    <div class="col-lg-5 col-xs-5 my-5">
-      <button class="btn btn-primary" data-toggle="modal" href="#addUser">Add New User</button>
+
+    <div class="col-lg-5 col-xs-5 py-5 my-5">
+      <button class="btn col-12 mt-4 mb-5" style="background-color: aquamarine;" data-toggle="modal"
+        href="#puffinSearch">Search
+        Puffin Database</button>
+      <button class="btn col-12 mb-5" style="background-color: aquamarine;" data-toggle="modal" href="#publicSubmissions">View
+        Public Submissions</button>
+      <button class="btn col-12 mb-5" style="background-color: aquamarine;" data-toggle="modal" href="#editUsers">Modify
+        Users</button>
     </div>
 
     <div id="carouselExampleControls" class="col-lg-7 col-xs-7 carousel slide my-auto" data-ride="carousel">
@@ -69,30 +74,28 @@
   </div>
 </div>
 
-<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="editUsers" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body">
         <form>
-          <h3>Add a user to the database</h3>
+          <h3>Modify Users in the Database</h3>
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="username" class="form-control" id="addUsername" aria-describedby="usernameHelp"
+            <input type="username" class="form-control" id="username" aria-describedby="usernameHelp"
               placeholder="Enter Username">
           </div>
           <div class="form-group">
             <label for="userPassword">Password</label>
-            <input type="password" class="form-control" id="addUserPassword" placeholder="Password">
-          </div>
-          <div class="form-group">
-            <label for="userAccessLevel">Access Level</label>
-            <input type="accessLevel" class="form-control" id="addUserAccessLevel" placeholder="User Access Level">
+            <input type="password" class="form-control" id="userPassword" placeholder="Enter Password for New Users">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button id="submitNewUser" type="button" class="btn" data-dismiss="modal"
-          style="background-color:aquamarine">Add</button>
+          style="background-color:aquamarine">Add User</button>
+        <button id="removeUser" type="button" class="btn" data-dismiss="modal"
+          style="background-color:aquamarine">Remove User</button>
       </div>
     </div>
   </div>
