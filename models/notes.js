@@ -10,7 +10,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    puffinIndex: DataTypes.INTEGER
+    puffinIndex: DataTypes.INTEGER,
+    createdAt: Sequelize.DATE,
+    updatedAt: Sequelize.DATE
   });
 
   Notes.associate = function(models) {
