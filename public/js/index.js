@@ -101,6 +101,74 @@ $("#signinButton").on("click", event => {
   });
 });
 
+$("#puffinSearch").on("click", function(event) {
+  event.preventDefault();
+  alert("puffin search");
+});
+
+$("#publicSubmissions").on("click", function(event) {
+  event.preventDefault();
+  alert("public submissions");
+});
+
+$("#Logout").on("click", function(event) {
+  event.preventDefault();
+  alert("You have logged out!");
+});
+
+$("#removeuser").on("click", function(event) {
+  event.preventDefault();
+  const userInfo = {
+    userName: $("#username")
+      .val()
+      .trim(),
+    passwordName: $("#userPassword")
+      .val()
+      .trim(),
+    accessLevel: $("#userAccessLevel")
+      .val()
+      .trim()
+  };
+  if (!(userInfo.userName && userInfo.passwordName && userInfo.accessLevel)) {
+    alert("You must enter a username, password and access level!");
+    return;
+  }
+
+  API.deleteUser(userInfo).then(returnData => {
+    console.log(returnData);
+  });
+});
+
+$("#submitNewUser").on("click", event => {
+  event.preventDefault();
+
+  const userInfo = {
+    userName: $("#username")
+      .val()
+      .trim(),
+    passwordName: $("#userPassword")
+      .val()
+      .trim(),
+    accessLevel: $("#userAccessLevel")
+      .val()
+      .trim()
+  };
+
+  if (
+    !(
+      userInfo.newUsername &&
+      userInfo.newUserPassword &&
+      userInfo.newUserAccessLevel
+    )
+  ) {
+    alert("You must enter a username, password and access level!");
+    return;
+  }
+
+  API.saveNewUser(userInfo).then(returnData => {
+    console.log(returnData);
+  });
+});
 // refreshExamples gets new examples from the db and repopulates the list
 // var refreshExamples = function() {
 //   API.getExamples().then(function(data) {
@@ -131,36 +199,6 @@ $("#signinButton").on("click", event => {
 // };
 
 // add new user to user DB on admin submission click
-$("#submitNewUser").on("click", event => {
-  event.preventDefault();
-
-  const userInfo = {
-    userName: $("#addUserName")
-      .val()
-      .trim(),
-    passwordName: $("#addUserPassword")
-      .val()
-      .trim(),
-    accessLevel: $("#addUserAccessLevel")
-      .val()
-      .trim()
-  };
-
-  if (
-    !(
-      userInfo.newUsername &&
-      userInfo.newUserPassword &&
-      userInfo.newUserAccessLevel
-    )
-  ) {
-    alert("You must enter a username, password and access level!");
-    return;
-  }
-
-  API.saveNewUser(userInfo).then(returnData => {
-    console.log(returnData);
-  });
-});
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
