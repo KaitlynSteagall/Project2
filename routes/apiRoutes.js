@@ -13,12 +13,12 @@ const auth = require("./authentication");
 // move data from public to puffin DB
 function pushPublicPuffin(dataObject, puffinID) {
   // add any notes to the note db
-  db.Note.create({
+  db.Notes.create({
     notes: dataObject.text,
     puffinIndex: puffinID
   });
   // add any images to the image db
-  db.Imageurl.create({
+  db.Imageurls.create({
     imgurl: dataObject.imgurl,
     artistName: dataObject.name,
     puffinIndex: puffinID
@@ -32,14 +32,14 @@ module.exports = function(app) {
 
   // get all puffins
   app.get("/api/puffins", (request, response) => {
-    db.Puffin.findAll({}).then(puffinsFromDB => {
+    db.Puffins.findAll({}).then(puffinsFromDB => {
       response.json(puffinsFromDB);
     });
   });
 
   // get particular puffin
   app.get("/api/puffins/:id", (request, response) => {
-    db.Puffin.findOne({
+    db.Puffins.findOne({
       where: {
         puffinIndex: request.params.id
       }
@@ -50,14 +50,14 @@ module.exports = function(app) {
 
   // get all users
   app.get("/api/users", auth.userIsAdmin, (request, response) => {
-    db.User.findAll({}).then(usersFromDB => {
+    db.Users.findAll({}).then(usersFromDB => {
       response.json(usersFromDB);
     });
   });
 
   // get particular user
   app.get("/api/users/:id", auth.userIsAdmin, (request, response) => {
-    db.User.findOne({
+    db.Users.findOne({
       where: {
         userName: request.params.id
       }
@@ -73,7 +73,7 @@ module.exports = function(app) {
 
   // get notes by puffin id
   app.get("/api/notes/:puffID", (request, response) => {
-    db.Note.findAll({
+    db.Notes.findAll({
       where: {
         puffinIndex: request.params.puffID
       },
@@ -106,7 +106,7 @@ module.exports = function(app) {
       isValid: false,
       accessLevel: 0
     };
-    db.User.findOne({
+    db.Users.findOne({
       where: {
         userName: nameToCheck
       }
@@ -119,10 +119,13 @@ module.exports = function(app) {
       }
       if (userFromDB.dataValues.accessLevel === 1) {
         console.log("we got admin access, should be sending page 1");
+        response.redirect("level1Home");
       } else if (userFromDB.dataValues.accessLevel === 2) {
         console.log("we got researcher access, should be sending page 2");
+        response.redirect("level2Home");
+      } else {
+        response.json(responseObject);
       }
-      response.json(responseObject);
     });
   });
 
@@ -159,14 +162,14 @@ module.exports = function(app) {
 
   // Push new puffin to database
   app.post("/api/puffins", auth.userIsResearcher, (request, response) => {
-    db.Puffin.create(request.body).then(pushedPuffin => {
+    db.Puffins.create(request.body).then(pushedPuffin => {
       response.json(pushedPuffin);
     });
   });
 
   // Push new user to database
   app.post("/api/users", auth.userIsAdmin, (request, response) => {
-    db.User.create(request.body).then(pushedUser => {
+    db.Users.create(request.body).then(pushedUser => {
       response.json(pushedUser);
     });
   });
@@ -179,7 +182,7 @@ module.exports = function(app) {
 
   // delete user
   app.delete("/api/user/:id", auth.userIsAdmin, (request, response) => {
-    db.User.destroy({ where: { userIndex: request.params.id } }).then(
+    db.Users.destroy({ where: { userIndex: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
       }

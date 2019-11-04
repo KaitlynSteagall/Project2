@@ -2,19 +2,36 @@
 const auth = {
   userAuthenticationLevel: 0,
   userIsAdmin: function(req, res, next) {
+    console.log("called userIsAdmin check");
     // middleware function to check for admin status
-    if (userAuthenticationLevel === 1) {
+    if (this.userAuthenticationLevel === 1) {
+      console.log(
+        "user was cleared as admin, access level is " +
+          this.userAuthenticationLevel
+      );
       return next();
     } else {
+      console.log("user was not cleared as admin, telling frontend to alert");
       alert("Authorization denied!");
       res.redirect("/");
     }
   },
   userIsResearcher: function(req, res, next) {
+    console.log("called userIsResearcher check");
     // middleware function to check for researcher status
-    if (userAuthenticationLevel === 2 || userAuthenticationLevel === 1) {
+    if (
+      this.userAuthenticationLevel === 2 ||
+      this.userAuthenticationLevel === 1
+    ) {
+      console.log(
+        "user was cleared as research or admin, access level is " +
+          this.userAuthenticationLevel
+      );
       return next();
     } else {
+      console.log(
+        "user was not cleared as admin/research, telling frontend to alert"
+      );
       alert("Authorization denied!");
       res.redirect("/");
     }
