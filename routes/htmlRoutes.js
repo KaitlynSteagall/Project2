@@ -20,6 +20,10 @@ module.exports = function(app) {
 
   // load admin page
   app.get("/admin", auth.userIsAdmin, (request, response) => {
+    console.log(
+      "trying to load admin page; app.get route is firing, access level is " +
+        auth.userAuthenticationLevel
+    );
     response.render("level1home");
   });
 

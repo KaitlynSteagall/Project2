@@ -9,7 +9,7 @@ const auth = {
         "user was cleared as admin, access level is " +
           auth.userAuthenticationLevel
       );
-      return next();
+      next();
     } else {
       console.log("user was not cleared as admin, telling frontend to alert");
       alert("Authorization denied!");
@@ -27,7 +27,7 @@ const auth = {
         "user was cleared as research or admin, access level is " +
           auth.userAuthenticationLevel
       );
-      return next();
+      next();
     } else {
       console.log(
         "user was not cleared as admin/research, telling frontend to alert"
