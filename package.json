@@ -1,7 +1,7 @@
 {
   "name": "puffinpower",
   "version": "1.0.0",
-  "description": "Project 2",
+  "description": "app to enable storing, sorting & crowdsourcing of research data",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
