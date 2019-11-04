@@ -101,9 +101,18 @@ $("#signinButton").on("click", event => {
   });
 });
 
+//on click to search one specific puffin
 $("#puffinSearch").on("click", function(event) {
   event.preventDefault();
   alert("puffin search");
+  const puffinInfo = {
+    puffinName: $("#puffinName")
+      .val()
+      .trim()
+  };
+  API.getOnePuffin(puffinInfo).then(returnData => {
+    console.log(returnData);
+  });
 });
 
 $("#publicSubmissions").on("click", function(event) {
@@ -116,6 +125,7 @@ $("#Logout").on("click", function(event) {
   alert("You have logged out!");
 });
 
+//on click for admin to remove user
 $("#removeuser").on("click", function(event) {
   event.preventDefault();
   const userInfo = {
@@ -139,6 +149,7 @@ $("#removeuser").on("click", function(event) {
   });
 });
 
+//on click for admin to create new user
 $("#submitNewUser").on("click", event => {
   event.preventDefault();
 
