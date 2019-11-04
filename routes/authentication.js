@@ -4,10 +4,10 @@ const auth = {
   userIsAdmin: function(req, res, next) {
     console.log("called userIsAdmin check");
     // middleware function to check for admin status
-    if (this.userAuthenticationLevel === 1) {
+    if (auth.userAuthenticationLevel === 1) {
       console.log(
         "user was cleared as admin, access level is " +
-          this.userAuthenticationLevel
+          auth.userAuthenticationLevel
       );
       return next();
     } else {
@@ -20,12 +20,12 @@ const auth = {
     console.log("called userIsResearcher check");
     // middleware function to check for researcher status
     if (
-      this.userAuthenticationLevel === 2 ||
-      this.userAuthenticationLevel === 1
+      auth.userAuthenticationLevel === 2 ||
+      auth.userAuthenticationLevel === 1
     ) {
       console.log(
         "user was cleared as research or admin, access level is " +
-          this.userAuthenticationLevel
+          auth.userAuthenticationLevel
       );
       return next();
     } else {
