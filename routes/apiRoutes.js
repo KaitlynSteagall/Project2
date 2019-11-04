@@ -123,7 +123,7 @@ module.exports = function(app) {
     console.log("object going to server is: ", request.body);
     const nameToCheck = request.body.userName;
     const passToCheck = request.body.passwordName;
-    console.log("validation is checking against: ", nameToCheck, passToCheck)
+    console.log("validation is checking against: ", nameToCheck, passToCheck);
     let responseObject = {
       isValid: false,
       accessLevel: 0
@@ -133,17 +133,17 @@ module.exports = function(app) {
         userName: nameToCheck
       }
     }).then(userFromDB => {
-      console.log("sequelize found:", userFromDB.dataValues)
+      console.log("sequelize found:", userFromDB.dataValues);
       if (passToCheck === userFromDB.dataValues.passwordName) {
         responseObject.isValid = true;
         responseObject.accessLevel = userFromDB.dataValues.accessLevel;
         userAuthenticationLevel = userFromDB.dataValues.accessLevel;
       }
       if (userFromDB.dataValues.accessLevel === 1) {
-        console.log("we got admin access, should be sending page 1")
+        console.log("we got admin access, should be sending page 1");
         response.render("level1Home");
       } else if (userFromDB.dataValues.accessLevel === 2) {
-        console.log("we got researcher access, should be sending page 2")
+        console.log("we got researcher access, should be sending page 2");
         response.render("level2Home");
       }
       response.json(responseObject);
