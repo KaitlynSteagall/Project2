@@ -24,12 +24,12 @@ module.exports = function(app) {
       "trying to load admin page; app.get route is firing, access level is " +
         auth.userAuthenticationLevel
     );
-    response.render("level1home");
+    response.render("level1Home");
   });
 
   // load researcher page
   app.get("/researcher", auth.userIsResearcher, (request, response) => {
-    response.render("level2home");
+    response.render("level2Home");
   });
 
   // load image page: all images for specific puffin
