@@ -165,13 +165,7 @@ $("#submitNewUser").on("click", event => {
       .trim()
   };
 
-  if (
-    !(
-      userInfo.newUsername &&
-      userInfo.newUserPassword &&
-      userInfo.newUserAccessLevel
-    )
-  ) {
+  if (!(userInfo.userName && userInfo.passwordName && userInfo.accessLevel)) {
     alert("You must enter a username, password and access level!");
     return;
   }
