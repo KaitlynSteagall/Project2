@@ -2,11 +2,9 @@
 //  database routes; saving and retrieving data
 //===============================================
 
-// get models from sequelize files
+// get models from sequelize files, middleware from authentication
 const db = require("../models");
-
-// this is a session variable that keeps track of whether the user is logged in
-// let userAuthenticationLevel = 0;
+const auth = require("./authentication");
 
 //----------------
 //  functions
@@ -15,37 +13,17 @@ const db = require("../models");
 // move data from public to puffin DB
 function pushPublicPuffin(dataObject, puffinID) {
   // add any notes to the note db
-  db.Notes.create({
+  db.Note.create({
     notes: dataObject.text,
     puffinIndex: puffinID
   });
   // add any images to the image db
-  db.Imageurls.create({
+  db.Imageurl.create({
     imgurl: dataObject.imgurl,
     artistName: dataObject.name,
     puffinIndex: puffinID
   });
 }
-
-// function userIsAdmin(req, res, next) {
-//   // middleware function to check for admin status
-//   if (userAuthenticationLevel === 1) {
-//     return next();
-//   } else {
-//     alert("Authorization denied!");
-//     res.redirect("/");
-//   }
-// }
-
-// function userIsResearcher(req, res, next) {
-//   // middleware function to check for researcher status
-//   if (userAuthenticationLevel === 2 || userAuthenticationLevel === 1) {
-//     return next();
-//   } else {
-//     alert("Authorization denied!");
-//     res.redirect("/");
-//   }
-// }
 
 module.exports = function(app) {
   //---------------
@@ -54,14 +32,14 @@ module.exports = function(app) {
 
   // get all puffins
   app.get("/api/puffins", (request, response) => {
-    db.Puffins.findAll({}).then(puffinsFromDB => {
+    db.Puffin.findAll({}).then(puffinsFromDB => {
       response.json(puffinsFromDB);
     });
   });
 
   // get particular puffin
   app.get("/api/puffins/:id", (request, response) => {
-    db.Puffins.findOne({
+    db.Puffin.findOne({
       where: {
         puffinIndex: request.params.id
       }
@@ -71,15 +49,15 @@ module.exports = function(app) {
   });
 
   // get all users
-  app.get("/api/users", (request, response) => {
-    db.Users.findAll({}).then(usersFromDB => {
+  app.get("/api/users", auth.userIsAdmin, (request, response) => {
+    db.User.findAll({}).then(usersFromDB => {
       response.json(usersFromDB);
     });
   });
 
   // get particular user
-  app.get("/api/users/:id", (request, response) => {
-    db.Users.findOne({
+  app.get("/api/users/:id", auth.userIsAdmin, (request, response) => {
+    db.User.findOne({
       where: {
         userName: request.params.id
       }
@@ -95,7 +73,7 @@ module.exports = function(app) {
 
   // get notes by puffin id
   app.get("/api/notes/:puffID", (request, response) => {
-    db.Notes.findAll({
+    db.Note.findAll({
       where: {
         puffinIndex: request.params.puffID
       },
@@ -108,7 +86,7 @@ module.exports = function(app) {
   });
 
   // get public posts for review
-  app.get("/api/public", (request, response) => {
+  app.get("/api/public", auth.userIsResearcher, (request, response) => {
     db.Public.findAll({
       order: {
         createdAt: "DESC"
@@ -128,7 +106,7 @@ module.exports = function(app) {
       isValid: false,
       accessLevel: 0
     };
-    db.Users.findOne({
+    db.User.findOne({
       where: {
         userName: nameToCheck
       }
@@ -137,21 +115,19 @@ module.exports = function(app) {
       if (passToCheck === userFromDB.dataValues.passwordName) {
         responseObject.isValid = true;
         responseObject.accessLevel = userFromDB.dataValues.accessLevel;
-        userAuthenticationLevel = userFromDB.dataValues.accessLevel;
+        auth.userAuthenticationLevel = userFromDB.dataValues.accessLevel;
       }
       if (userFromDB.dataValues.accessLevel === 1) {
         console.log("we got admin access, should be sending page 1");
-        response.render("level1Home");
       } else if (userFromDB.dataValues.accessLevel === 2) {
         console.log("we got researcher access, should be sending page 2");
-        response.render("level2Home");
       }
       response.json(responseObject);
     });
   });
 
   // get information from selected public post, move it to puffin table
-  app.get("/api/public/id", (request, response) => {
+  app.get("/api/public/id", auth.userIsResearcher, (request, response) => {
     db.Public.findOne({
       where: {
         publicIndex: request.params.id
@@ -163,7 +139,11 @@ module.exports = function(app) {
         name: publicObject.publicName,
         text: publicObject.comments
       };
-
+      db.Public.destroy({
+        where: {
+          publicIndex: request.params.id
+        }
+      });
       pushPublicPuffin(dataObject, puffinID);
     });
     response.json(publicObject);
@@ -178,15 +158,15 @@ module.exports = function(app) {
   //----------------
 
   // Push new puffin to database
-  app.post("/api/puffins", (request, response) => {
-    db.Puffins.create(request.body).then(pushedPuffin => {
+  app.post("/api/puffins", auth.userIsResearcher, (request, response) => {
+    db.Puffin.create(request.body).then(pushedPuffin => {
       response.json(pushedPuffin);
     });
   });
 
   // Push new user to database
-  app.post("/api/users", (request, response) => {
-    db.Users.create(request.body).then(pushedUser => {
+  app.post("/api/users", auth.userIsAdmin, (request, response) => {
+    db.User.create(request.body).then(pushedUser => {
       response.json(pushedUser);
     });
   });
@@ -198,8 +178,8 @@ module.exports = function(app) {
   // Delete functions are restricted to admin access
 
   // delete user
-  app.delete("/api/user/:id", (request, response) => {
-    db.Users.destroy({ where: { userIndex: request.params.id } }).then(
+  app.delete("/api/user/:id", auth.userIsAdmin, (request, response) => {
+    db.User.destroy({ where: { userIndex: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
       }
@@ -207,7 +187,7 @@ module.exports = function(app) {
   });
 
   // delete entry from public database
-  app.delete("/api/public/:id", (request, response) => {
+  app.delete("/api/public/:id", auth.userIsResearcher, (request, response) => {
     db.Public.destroy({ where: { publicIndex: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
