@@ -18,7 +18,7 @@ function pushPublicPuffin(dataObject, puffinID) {
     puffinIndex: puffinID
   });
   // add any images to the image db
-  db.Imageurl.create({
+  db.Imageurls.create({
     imgurl: dataObject.imgurl,
     artistName: dataObject.name,
     puffinIndex: puffinID
@@ -119,10 +119,13 @@ module.exports = function(app) {
       }
       if (userFromDB.dataValues.accessLevel === 1) {
         console.log("we got admin access, should be sending page 1");
+        response.redirect("level1Home");
       } else if (userFromDB.dataValues.accessLevel === 2) {
         console.log("we got researcher access, should be sending page 2");
+        response.redirect("level2Home");
+      } else {
+        response.json(responseObject);
       }
-      response.json(responseObject);
     });
   });
 
