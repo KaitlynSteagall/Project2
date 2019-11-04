@@ -118,7 +118,6 @@ $("#Logout").on("click", function(event) {
 
 $("#removeuser").on("click", function(event) {
   event.preventDefault();
-  alert("remove user");
   const userInfo = {
     userName: $("#username")
       .val()
