@@ -52,7 +52,14 @@ const API = {
   },
   checkUser: function(currentUserData) {
     return $.ajax({
-      url: "api/checkuser",
+      url: "/api/checkuser",
+      type: "POST",
+      data: currentUserData
+    });
+  },
+  getId: function(currentUserData) {
+    return $.ajax({
+      url: "/api/getId",
       type: "POST",
       data: currentUserData
     });
@@ -101,12 +108,21 @@ $("#signinButton").on("click", event => {
   });
 });
 
-//on click to search one specific puffin
 $("#puffinSearch").on("click", function(event) {
+  console.log("puffinSearch function");
+  event.preventDefault();
+  $.ajax({
+    url: "/api/search/puffins",
+    type: "GET"
+  });
+});
+
+//on click to search one specific puffin
+$("#submitSearchPuffin").on("click", function(event) {
   event.preventDefault();
   alert("puffin search");
   const puffinInfo = {
-    puffinName: $("#puffinName")
+    puffinIndex: $("#puffinID")
       .val()
       .trim()
   };
@@ -143,9 +159,12 @@ $("#removeuser").on("click", function(event) {
     alert("You must enter a username, password and access level!");
     return;
   }
-
-  API.deleteUser(userInfo).then(returnData => {
-    console.log(returnData);
+  API.getId(userInfo).then(returnData => {
+    console.log("index console", returnData);
+    var deleteUserIndex = returnData;
+    API.deleteUser(deleteUserIndex).then(returnData => {
+      console.log(returnData);
+    });
   });
 });
 

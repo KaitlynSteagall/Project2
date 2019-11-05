@@ -96,6 +96,24 @@ module.exports = function(app) {
     });
   });
 
+  //get Id
+  app.post("/api/getId", (request, response) => {
+    console.log("object going to server is: ", request.body);
+    const nameToCheck = request.body.userName;
+    const passToCheck = request.body.passwordName;
+    console.log("validation is checking against: ", nameToCheck, passToCheck);
+
+    db.Users.findOne({
+      where: {
+        userName: nameToCheck,
+        passwordName: passToCheck
+      }
+    }).then(userFromDB => {
+      console.log("apiroute", userFromDB.dataValues.userIndex);
+      response.json(userFromDB.dataValues.userIndex);
+    });
+  });
+
   // validate user login
   app.post("/api/checkuser", (request, response) => {
     console.log("object going to server is: ", request.body);
@@ -119,7 +137,8 @@ module.exports = function(app) {
       }
       if (userFromDB.dataValues.accessLevel === 1) {
         console.log("we got admin access, should be sending page 1");
-        response.redirect("level1Home");
+        //response.redirect("level1Home");
+        response.render("level1Home");
       } else if (userFromDB.dataValues.accessLevel === 2) {
         console.log("we got researcher access, should be sending page 2");
         response.redirect("level2Home");
@@ -181,7 +200,8 @@ module.exports = function(app) {
   // Delete functions are restricted to admin access
 
   // delete user
-  app.delete("/api/user/:id", auth.userIsAdmin, (request, response) => {
+  app.delete("/api/users/:id", auth.userIsAdmin, (request, response) => {
+    console.log("request param id", request.params.id);
     db.Users.destroy({ where: { userIndex: request.params.id } }).then(
       dbPostRemoval => {
         response.json(dbPostRemoval);
