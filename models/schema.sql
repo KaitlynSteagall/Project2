@@ -3,7 +3,7 @@ CREATE DATABASE puffinpowerDB;
 
 USE puffinpowerDB;
 
-CREATE TABLE users (
+CREATE TABLE Users (
 	userIndex INT AUTO_INCREMENT NOT NULL,
     userName VARCHAR(100) NOT NULL,
     passwordName VARCHAR(100) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE users (
 	primary key(userIndex)
 );
 
-CREATE TABLE puffins (
+CREATE TABLE Puffins (
 	puffinIndex INT AUTO_INCREMENT NOT NULL,
     puffinName VARCHAR(100),
     gender VARCHAR(100),
@@ -23,7 +23,7 @@ CREATE TABLE puffins (
 	primary key(puffinIndex)
 );
 
-CREATE TABLE public (
+CREATE TABLE Public (
 	publicIndex INT AUTO_INCREMENT NOT NULL,
     publicName VARCHAR(100),
     comments TEXT,
@@ -33,17 +33,17 @@ CREATE TABLE public (
 	primary key(publicIndex)
 );
 
-CREATE TABLE notes (
+CREATE TABLE Notes (
 	notesIndex INT AUTO_INCREMENT NOT NULL,
     notes TEXT NOT NULL,
     puffinIndex INT NOT NULL,
     updatedAt TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
 	createdAt TIMESTAMP NOT NULL,
 	primary key (notesIndex),
-    FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex)
+    FOREIGN KEY (puffinIndex) REFERENCES Puffins(puffinIndex)
 );
 
-CREATE TABLE imageurls (
+CREATE TABLE Imageurls (
 	imgIndex INT AUTO_INCREMENT NOT NULL,
     imgurl VARCHAR(255),
     artistName VARCHAR(255),
@@ -51,5 +51,5 @@ CREATE TABLE imageurls (
     updatedAt TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
 	createdAt TIMESTAMP NOT NULL,
 	primary key(imgIndex),
-    FOREIGN KEY (puffinIndex) REFERENCES puffins(puffinIndex)
+    FOREIGN KEY (puffinIndex) REFERENCES Puffins(puffinIndex)
 );
