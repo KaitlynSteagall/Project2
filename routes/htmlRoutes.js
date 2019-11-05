@@ -43,6 +43,10 @@ module.exports = function(app) {
       });
   });
 
+  app.get("/api/search/puffins", (request, response) => {
+    response.render("SearchPuffin");
+  });
+
   // Render 404 page for any unmatched routes
   app.get("*", (request, response) => {
     response.render("404");

@@ -52,7 +52,7 @@ const API = {
   },
   checkUser: function(currentUserData) {
     return $.ajax({
-      url: "api/checkuser",
+      url: "/api/checkuser",
       type: "POST",
       data: currentUserData
     });
@@ -101,12 +101,21 @@ $("#signinButton").on("click", event => {
   });
 });
 
-//on click to search one specific puffin
 $("#puffinSearch").on("click", function(event) {
+  console.log("puffinSearch function");
+  event.preventDefault();
+  $.ajax({
+    url: "/api/search/puffins",
+    type: "GET"
+  });
+});
+
+//on click to search one specific puffin
+$("#submitSearchPuffin").on("click", function(event) {
   event.preventDefault();
   alert("puffin search");
   const puffinInfo = {
-    puffinName: $("#puffinName")
+    puffinIndex: $("#puffinID")
       .val()
       .trim()
   };

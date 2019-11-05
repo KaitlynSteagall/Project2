@@ -119,7 +119,8 @@ module.exports = function(app) {
       }
       if (userFromDB.dataValues.accessLevel === 1) {
         console.log("we got admin access, should be sending page 1");
-        response.redirect("level1Home");
+        //response.redirect("level1Home");
+        response.render("level1Home");
       } else if (userFromDB.dataValues.accessLevel === 2) {
         console.log("we got researcher access, should be sending page 2");
         response.redirect("level2Home");
