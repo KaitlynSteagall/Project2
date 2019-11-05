@@ -21,6 +21,7 @@ const API = {
     });
   },
   getOnePuffin: function(id) {
+    console.log("id is ", id);
     return $.ajax({
       url: "/api/puffins/" + id,
       type: "GET"
@@ -95,39 +96,58 @@ $("#signinButton").on("click", event => {
       .trim()
   };
   API.checkUser(userEnteredInfo).then(infoFromServer => {
+    console.log("check user back from api route", infoFromServer);
     // the server will tell us if the password is good or not, and what access level we have
     if (infoFromServer.isValid === false) {
       alert("Sorry, that password doesn't match our records!");
     } else if (infoFromServer.accessLevel === 1) {
       alert("yay you're an admin");
+      // return $.ajax({
+      //   url: "/admin",
+      //   type: "GET"
+      // });
+      window.location = "/admin";
       // TODO: create some kind of local storage to keep us logged in long-term
     } else if (infoFromServer.accessLevel === 2) {
       alert("yay you're a researcher");
+      window.location = "/researcher";
       // again with the local storage
     }
   });
 });
 
-$("#puffinSearch").on("click", function(event) {
-  console.log("puffinSearch function");
-  event.preventDefault();
-  $.ajax({
-    url: "/api/search/puffins",
-    type: "GET"
-  });
-});
-
 //on click to search one specific puffin
-$("#submitSearchPuffin").on("click", function(event) {
+$("#puffinSearch").on("click", function(event) {
+  console.log("puffin search clicked");
   event.preventDefault();
-  alert("puffin search");
-  const puffinInfo = {
-    puffinIndex: $("#puffinID")
-      .val()
-      .trim()
-  };
+  var puffinInfo = $("#puffinSearchID")
+    .val()
+    .trim();
+  console.log("user entered puffin search", puffinInfo);
   API.getOnePuffin(puffinInfo).then(returnData => {
-    console.log(returnData);
+    console.log("Puffin data returned", returnData);
+    console.log("Puffin !!!! ", returnData.puffinIndex, returnData.puffinName);
+    $("#puffinResult").append(
+      "<tr> <th scope='row'>" +
+        returnData.puffinIndex +
+        "</th>" +
+        "<td>" +
+        returnData.puffinName +
+        "</td>" +
+        "<td>" +
+        returnData.gender +
+        "</td>" +
+        "<td>" +
+        returnData.age +
+        "</td>" +
+        "<td>" +
+        returnData.updatedAt +
+        "</td>" +
+        "<td>" +
+        returnData.createdAt +
+        "</td>" +
+        "</tr>"
+    );
   });
 });
 
