@@ -62,4 +62,10 @@ function generateHash(n) {
   return hash;
 }
 
-module.exports = pushImageToPenguinByIDAndGetURL;
+// submit button function
+$("#submitNewPuffinButton").on("click", event => {
+  event.preventDefault(); // don't reload the page
+  console.log("caught submit click event, sending image file to firebase");
+  url = pushImageToPenguinByIDAndGetURL(penguinID);
+  console.log("ran firebase submission, got url back", url);
+});
