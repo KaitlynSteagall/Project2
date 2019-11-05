@@ -161,14 +161,101 @@
 
       </form>
 
-      <button id="selectPuffin" type="button" class="btn align-right" data-dismiss="modal"
-        style="background-color:aquamarine">Open Puffin Profile</button>
+      <button id="selectPuffin" type="button" class="btn align-right" data-dismiss="modal" data-toggle="modal"
+        href="#puffinProfile" style="background-color:aquamarine">Open Puffin Profile</button>
 
     </div>
-
   </div>
-
 </div>
+
+<div class="modal fade" id="puffinProfile" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist"
+        style="background-color: aquamarine; border-radius: 5px 5px 0 0 ;">
+        <li class="nav-item">
+          <a class="nav-link active" id="facts-tab" data-toggle="tab" href="#puffinInfo" role="tab"
+            aria-controls="facts" aria-selected="true" style="color: black;">Profile</a>
+        </li>
+        <li class="nav-item" style="background-color: aquamarine;">
+          <a class="nav-link" id="pics-tab" data-toggle="tab" href="#puffinPics" role="tab" aria-controls="pics"
+            aria-selected="false" style="color:black">Pictures</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="puffinInfo" role="tabpanel" aria-labelledby="info-tab">
+          <form class="col-lg-10 col-xs-10 mx-auto my-5">
+
+            <div class="form-row mt-4 mb-3">
+              <div class="col-5">
+                <input type="text" class="form-control" placeholder="ID#">
+              </div>
+              <div class="col-7">
+                <input type="text" class="form-control" placeholder="Nickname">
+              </div>
+            </div>
+
+            <div class="form-row mt-4 mb-3">
+              <div class="col-5">
+                <input type="text" class="form-control" placeholder="Gender">
+              </div>
+              <div class="col-5">
+                <input type="text" class="form-control" placeholder="Age">
+              </div>
+              <button class="btn col-2 mb-2" style="background-color: aquamarine;">Search</button>
+            </div>
+
+            <div class="form-group">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="mr-5">Notes</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Created/Updated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>adfgnjghuerjiofkmlnjhgejnfmklgdtj</td>
+                    <th scope="row" colspan="2">1</th>
+                    <td>Otto</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="puffinPics" role="tabpanel" aria-labelledby="pics-tab">
+          <div class="container mx-auto">
+            <div class="row mx-auto">
+              <div class="col-12 mx-auto my-4 text-center">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <button id="selectPuffin" type="button" class="btn align-right" data-dismiss="modal"
+        style="background-color:aquamarine">Save and Exit</button>
+
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="publicSubmits" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
