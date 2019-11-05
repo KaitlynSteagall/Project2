@@ -22,41 +22,43 @@
 </nav>
 
 <div class="container" style="background-color:rgba(255, 255, 255, 0.766)">
-  <div class="row py-3 my-5">
+  <div class="row my-5">
 
     <div class="col-lg-5 col-xs-5 py-5 my-5">
-      <button class="btn col-12 my-5" style="background-color: aquamarine;" data-toggle="modal"
-        id="#puffinSearch">Search
+      <button class="btn col-12 mt-4 mb-5" style="background-color: aquamarine;" data-toggle="modal"
+        href="#searchPuffins">Search
         Puffin Database</button>
       <button class="btn col-12 mb-5" style="background-color: aquamarine;" data-toggle="modal"
-        id="#publicSubmissions">View
+        href="#publicSubmits">View
         Public Submissions</button>
+      <button class="btn col-12 mb-5" style="background-color: aquamarine;" data-toggle="modal" href="#addPuffin">Add
+        New Puffin</button>
     </div>
 
     <div id="carouselExampleControls" class="col-lg-7 col-xs-7 carousel slide my-auto" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="./assets/images/alex-makarov-jnZ5fTnn0i8-unsplash.jpg" class="d-block w-100 my-auto"
+          <img src="./images/alex-makarov-jnZ5fTnn0i8-unsplash.jpg" class="d-block w-100 my-2"
             alt="Puffins nuzzling">
         </div>
         <div class="carousel-item">
-          <img src="./assets/images/jonatan-pie-8oEuGJ-Uva0-unsplash.jpg" class="d-block w-100 my-auto"
+          <img src="./images/jonatan-pie-8oEuGJ-Uva0-unsplash.jpg" class="d-block w-100 my-2"
             alt="Puffins in grass">
         </div>
         <div class="carousel-item">
-          <img src="./assets/images/liudmila-shuvalova-ZHYXoJDrQ0M-unsplash.jpg" class="d-block w-100 my-auto"
+          <img src="./images/liudmila-shuvalova-ZHYXoJDrQ0M-unsplash.jpg" class="d-block w-100 my-2"
             alt="Puffin with fish">
         </div>
         <div class="carousel-item">
-          <img src="./assets/images/m-zonderling-COMlc1Z23N4-unsplash.jpg" class="d-block w-100 my-auto"
+          <img src="./images/m-zonderling-COMlc1Z23N4-unsplash.jpg" class="d-block w-100 my-2"
             alt="Puffins on rocks">
         </div>
         <div class="carousel-item">
-          <img src="./assets/images/ray-hennessy-PHnBeYvpWgA-unsplash.jpg" class="d-block w-100 my-auto"
+          <img src="./images/ray-hennessy-PHnBeYvpWgA-unsplash.jpg" class="d-block w-100 my-2"
             alt="Puffin flying">
         </div>
         <div class="carousel-item">
-          <img src="./assets/images/sarah-kilian-vf0lyNg41lk-unsplash.jpg" class="d-block w-100 my-auto"
+          <img src="./images/sarah-kilian-vf0lyNg41lk-unsplash.jpg" class="d-block w-100 my-2"
             alt="Puffins fighting">
         </div>
       </div>
@@ -70,5 +72,220 @@
       </a>
     </div>
 
+  </div>
+</div>
+
+<div class="modal fade" id="addPuffin" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <form>
+          <h3 class="text-center mb-3">Add Puffin to Database</h3>
+          <div class="form-group">
+            <label for="ID#">ID#</label>
+            <input type="text" readonly class="form-control" id="ID#" aria-describedby="usernameHelp" value="{{id}}">
+          </div>
+          <div class="form-group">
+            <label for="nickname">Nickname</label>
+            <input type="text" class="form-control" id="nickname" placeholder="Enter Nickname">
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <input type="text" class="form-control" id="gender" placeholder="Enter Gender">
+          </div>
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" class="form-control" id="age" placeholder="Enter Age">
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button id="submitNewPuffin" type="button" class="btn" data-dismiss="modal"
+          style="background-color:aquamarine">Add Puffin</button>
+        <button type="button" class="btn" data-dismiss="modal" style="background-color:aquamarine">Exit</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="searchPuffins" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <form class="col-lg-10 col-xs-10 mx-auto my-4">
+        <h3 class="text-center">Search Puffin Database</h3>
+
+
+        <div class="form-row mt-4 mb-3">
+          <div class="col-5">
+            <input type="text" class="form-control" placeholder="ID#">
+          </div>
+          <div class="col-7">
+            <input type="text" class="form-control" placeholder="Nickname">
+          </div>
+        </div>
+
+        <div class="form-row mt-4 mb-3">
+          <div class="col-5">
+            <input type="text" class="form-control" placeholder="Gender">
+          </div>
+          <div class="col-5">
+            <input type="text" class="form-control" placeholder="Age">
+          </div>
+          <button class="btn col-2 mb-2" style="background-color: aquamarine;">Search</button>
+        </div>
+
+        <div class="form-group">
+          <table class="table table-bordered">
+            <thead style="background-color: rgba(127, 255, 212, 0.212)">
+              <tr>
+                <th scope="col">ID#</th>
+                <th scope="col">Nickname</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Age</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </form>
+
+      <button id="selectPuffin" type="button" class="btn align-right" data-dismiss="modal" data-toggle="modal"
+        href="#puffinProfile" style="background-color:aquamarine">Open Puffin Profile</button>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="puffinProfile" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist"
+        style="background-color: aquamarine; border-radius: 5px 5px 0 0 ;">
+        <li class="nav-item">
+          <a class="nav-link active" id="facts-tab" data-toggle="tab" href="#puffinInfo" role="tab"
+            aria-controls="facts" aria-selected="true" style="color: black;">Profile</a>
+        </li>
+        <li class="nav-item" style="background-color: aquamarine;">
+          <a class="nav-link" id="pics-tab" data-toggle="tab" href="#puffinPics" role="tab" aria-controls="pics"
+            aria-selected="false" style="color:black">Pictures</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="puffinInfo" role="tabpanel" aria-labelledby="info-tab">
+          <form class="col-lg-10 col-xs-10 mx-auto my-5">
+
+            <div class="form-row mt-4 mb-3">
+              <div class="col-5">
+                <label>ID#</label>
+                <input type="text" readonly class="form-control" value="{{id}}">
+              </div>
+              <div class="col-7">
+                <label>Nickname</label>
+                <input type="text" readonly class="form-control" value="{{nickname}}">
+              </div>
+            </div>
+
+            <div class="form-row mt-4 mb-5">
+              <div class="col-5">
+                <label>Gender</label>
+                <input type="text" readonly class="form-control" value="{{gender}}">
+              </div>
+              <div class="col-3">
+                <label>Age</label>
+
+                <input type="text" readonly class="form-control" value="{{age}}">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="mr-5">Notes</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Created/Updated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>adfgnjghuerjiofkmlnjhgejnfmklgdtj</td>
+                    <th scope="row" colspan="2">1</th>
+                    <td>Otto</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </form>
+        </div>
+
+        <div class="tab-pane fade" id="puffinPics" role="tabpanel" aria-labelledby="pics-tab">
+          <div class="container mx-auto">
+            <div class="row mx-auto">
+              <div class="col-12 mx-auto my-4 text-center">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+                <img class="col-xl-3 col-md-5 my-2" src="./images/puffinbackground.jpg">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <button id="selectPuffin" type="button" class="btn align-right" data-dismiss="modal"
+        style="background-color:aquamarine">Save and Exit</button>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="publicSubmits" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <h3 class="text-center mt-4">Public Submissions</h3>
+
+      <div class="container mx-auto">
+        <div class="row mx-auto">
+          <div class="col-12 mx-auto my-4 text-center">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+            <img class="col-xl-3 col-md-5 my-2" src="./assets/images/puffinbackground.jpg">
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn align-right" data-dismiss="modal"
+        style="background-color:aquamarine">Exit</button>
+
+    </div>
   </div>
 </div>
