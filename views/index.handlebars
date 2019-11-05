@@ -277,7 +277,6 @@
     let validImage = false; // the API call can use this to check if there's an image present
 
     // function to open camera when button is clicked
-    // we could make this jquery later for dryness if we wanted
 
     function openCamera() {
       console.log("inside open camera")
@@ -286,7 +285,7 @@
       photo = $('#photo');
       cameraBtn = $('#takePictureBtn');
 
-      navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: {exact: "environment"} } })
+      navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode:"environment"} })
         .then(stream => { // getusermedia returns the stream as a promise
           video.srcObject = stream; // set that stream as the source of video div
           video.play(); // also, begin stream playback
@@ -352,6 +351,7 @@
 
     // function to recognize filename on upload
     $('#validatedCustomFile').on('change', event => {
+      console.log("added a file, fired an event, should be adding the name");
       const fileName = $(this).val();
       $(this).next('.custom-file-label').html(fileName);
     });
@@ -362,7 +362,7 @@
       console.log("inside event listener");
       openCamera(); // create the camera
     }, false);
-  });
+  })
   ();
 </script>
 
