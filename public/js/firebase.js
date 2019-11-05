@@ -66,6 +66,6 @@ function generateHash(n) {
 $("#submitNewPuffinButton").on("click", event => {
   event.preventDefault(); // don't reload the page
   console.log("caught submit click event, sending image file to firebase");
-  url = pushImageToPenguinByIDAndGetURL(penguinID);
+  url = pushImageToPenguinByIDAndGetURL();
   console.log("ran firebase submission, got url back", url);
 });
