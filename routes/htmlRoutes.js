@@ -1,5 +1,5 @@
 var db = require("../models");
-const auth = require("./authentication");
+// const auth = require("./authentication");
 
 module.exports = function(app) {
   // Load index page
@@ -19,16 +19,20 @@ module.exports = function(app) {
   });
 
   // load admin page
-  app.get("/admin", auth.userIsAdmin, (request, response) => {
+  // app.get("/admin", auth.userIsAdmin, (request, response) => {
+  app.get("/admin", (request, response) => {
     console.log(
-      "trying to load admin page; app.get route is firing, access level is " +
-        auth.userAuthenticationLevel
+      "sending admin page"
+      // "trying to load admin page; app.get route is firing, access level is " +
+      //   auth.userAuthenticationLevel
     );
     response.render("level1Home");
   });
 
   // load researcher page
-  app.get("/researcher", auth.userIsResearcher, (request, response) => {
+  // app.get("/researcher", auth.userIsResearcher, (request, response) => {
+  app.get("/researcher", (request, response) => {
+    console.log("sending researcher page");
     response.render("level2Home");
   });
 
@@ -41,10 +45,6 @@ module.exports = function(app) {
           images: imagesReturned
         });
       });
-  });
-
-  app.get("/api/search/puffins", (request, response) => {
-    response.render("SearchPuffin");
   });
 
   // Render 404 page for any unmatched routes
