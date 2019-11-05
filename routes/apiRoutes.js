@@ -127,6 +127,7 @@ module.exports = function(app) {
     const passToCheck = request.body.passwordName;
     console.log("validation is checking against: ", nameToCheck, passToCheck);
     let responseObject = {
+      exists: true,
       isValid: false,
       accessLevel: 0
     };
@@ -136,22 +137,15 @@ module.exports = function(app) {
       }
     }).then(userFromDB => {
       console.log("sequelize found:", userFromDB.dataValues);
+      if (!userFromDB.dataValues) {
+        responseObject.exists = false;
+      }
       if (passToCheck === userFromDB.dataValues.passwordName) {
         responseObject.isValid = true;
         responseObject.accessLevel = userFromDB.dataValues.accessLevel;
         // auth.userAuthenticationLevel = userFromDB.dataValues.accessLevel;
       }
       response.json(responseObject);
-      // if (userFromDB.dataValues.accessLevel === 1) {
-      //   console.log("we got admin access, should be sending page 1");
-      //   //response.redirect("level1Home");
-      //   response.render("level1Home");
-      // } else if (userFromDB.dataValues.accessLevel === 2) {
-      //   console.log("we got researcher access, should be sending page 2");
-      //   response.render("level2Home");
-      // } else {
-      //   response.json(responseObject);
-      // }
     });
   });
 
@@ -200,6 +194,20 @@ module.exports = function(app) {
   app.post("/api/users", (request, response) => {
     db.Users.create(request.body).then(pushedUser => {
       response.json(pushedUser);
+    });
+  });
+
+  // Push new public info to database
+  app.post("/api/public", (request, response) => {
+    db.Public.create(request.body).then(pushedData => {
+      response.json(pushedData);
+    });
+  });
+
+  // Push new url to image table
+  app.post("/api/imageurl", (request, response) => {
+    db.Imageurls.create(request.body).then(pushedData => {
+      response.json(pushedData);
     });
   });
 

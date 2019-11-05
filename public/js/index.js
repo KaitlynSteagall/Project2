@@ -20,6 +20,16 @@ const API = {
       data: JSON.stringify(addNewPuffinData)
     });
   },
+  saveNewPublicEntry: function(addNewPublicData) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/public",
+      data: JSON.stringify(addNewPublicData)
+    });
+  },
   getOnePuffin: function(id) {
     console.log("id is ", id);
     return $.ajax({
