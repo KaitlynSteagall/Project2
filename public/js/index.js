@@ -57,6 +57,13 @@ const API = {
       data: currentUserData
     });
   },
+  getId: function(currentUserData) {
+    return $.ajax({
+      url: "/api/getId",
+      type: "POST",
+      data: currentUserData
+    });
+  },
   getNotes: function(id) {
     return $.ajax({
       url: "/api/notes/" + id,
@@ -152,9 +159,12 @@ $("#removeuser").on("click", function(event) {
     alert("You must enter a username, password and access level!");
     return;
   }
-
-  API.deleteUser(userInfo).then(returnData => {
-    console.log(returnData);
+  API.getId(userInfo).then(returnData => {
+    console.log("index console", returnData);
+    var deleteUserIndex = returnData;
+    API.deleteUser(deleteUserIndex).then(returnData => {
+      console.log(returnData);
+    });
   });
 });
 
