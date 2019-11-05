@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta charset="utf-8">
+
+  <!-- Bootstrap & override CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/docs/style.css">
+</head>
+
+<body>
+
+
+  <div id="filesubmit">
+    <input type="file" id="file-select" accept="image/*" />
+    <button id="file-submit">SUBMIT</button>
+  </div>
+
+
+
+  <!-- two sources: firebase app sdk, firebase cloud storage sdk -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-storage.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="text/javascript">
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLnaCoI1DzsO_7yccSzmsbb4vGVAN9iIM",
+      authDomain: "puffinpower-90f79.firebaseapp.com",
+      databaseURL: "https://puffinpower-90f79.firebaseio.com",
+      projectId: "puffinpower-90f79",
+      storageBucket: "puffinpower-90f79.appspot.com",
+      messagingSenderId: "934243007516",
+      appId: "1:934243007516:web:b8d887b235a3578a2c33d9"
+    };
+
+    // Initialize Firebase, create some variables we can use
+    firebase.initializeApp(firebaseConfig);
+    const storageService = firebase.storage(); // contains methods for storing/fetching files
+    const puffinFBserver = storageService.ref(); // our actual specific server
+
+    document.getElementById('file-select').addEventListener('change', handleFileUploadChange);
+    document.getElementById('file-submit').addEventListener('click', handleFileUploadSubmit);
+
+    let selectedFile;
+    function handleFileUploadChange(e) {
+      selectedFile = e.target.files[0];
+    }
+
+    function handleFileUploadSubmit(e) {
+      const uploadTask = puffinFBserver.child('images/' + selectedFile.name).put(selectedFile);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // when the upload does something
+        function (snapshot) {
+          // we can do stuff in here like track upload progress, pauses, etc
+        }, function (error) {
+          console.log("an error occurred in upload: ", error)
+        }, function () {
+          // Upload completed successfully, now we can get the download URL
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            console.log('File available at', downloadURL);
+          });
+        });
+
+    }
+  </script>
+</body>
+
+</html>
