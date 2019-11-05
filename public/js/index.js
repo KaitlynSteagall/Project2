@@ -82,6 +82,13 @@ const API = {
       url: "/api/public/" + id,
       type: "DELETE"
     });
+  },
+  getSinglePuffinNote: function(puffID) {
+    console.log("function single puffin note ", puffID);
+    return $.ajax({
+      url: "/api/notes/" + puffID,
+      type: POST
+    });
   }
 };
 
@@ -148,6 +155,14 @@ $("#puffinSearch").on("click", function(event) {
         "</td>" +
         "</tr>"
     );
+    $("#selectPuffin").on("click", event => {
+      event.preventDefault();
+      var puffID = returnData.puffinIndex;
+      console.log("puffinID ", puffID);
+      API.getSinglePuffinNote(puffID).then(returnData => {
+        console.log("puffin note return data ", returnData);
+      });
+    });
   });
 });
 
