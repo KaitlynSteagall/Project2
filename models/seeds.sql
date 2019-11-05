@@ -66,3 +66,15 @@ VALUES ("wclements", "test8", 2, now());
 
 INSERT INTO Users (userName, passwordName, accessLevel, createdAt)
 VALUES ("nsylwester", "test9", 2, now());
+
+INSERT INTO Notes (notes, puffinIndex, createdAt)
+VALUES ("blubbers spent an hour this morning collecting shiny rocks", 1, now());
+
+INSERT INTO Notes (notes, puffinIndex, createdAt)
+VALUES ("saw puffin #1 over on the west camera today, she's been wandering", 1, now());
+
+INSERT INTO Imageurlss (imgurl, artistName, puffinIndex, createdAt)
+VALUES ("https://mediad.publicbroadcasting.net/p/shared/npr/styles/x_large/nprshared/201908/746246904.jpg", "Jane Doe", 1, now());
+
+INSERT INTO Imageurlss (imgurl, artistName, puffinIndex, createdAt)
+VALUES ("https://www.telegraph.co.uk/content/dam/Travel/2018/July/puffin-sad-GettyImages-564344853.jpg", "Jane Doe", 1, now());
