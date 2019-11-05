@@ -18,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
+    freezeTableName: true,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
   });
