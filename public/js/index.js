@@ -127,7 +127,6 @@ $("#puffinSearch").on("click", function(event) {
   API.getOnePuffin(puffinInfo).then(returnData => {
     console.log("Puffin data returned", returnData);
     console.log("Puffin !!!! ", returnData.puffinIndex, returnData.puffinName);
-    $(document).ready( function(){
     $("#puffinResult").append(
       "<tr> <th scope='row'>" +
         returnData.puffinIndex +
