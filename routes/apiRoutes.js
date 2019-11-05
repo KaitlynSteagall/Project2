@@ -44,6 +44,7 @@ module.exports = function(app) {
         puffinIndex: request.params.id
       }
     }).then(puffinFromDB => {
+      console.log("puffin from Db", puffinFromDB);
       response.json(puffinFromDB);
     });
   });

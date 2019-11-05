@@ -108,26 +108,14 @@ $("#signinButton").on("click", event => {
   });
 });
 
-$("#puffinSearch").on("click", function(event) {
-  console.log("puffinSearch function");
-  event.preventDefault();
-  $.ajax({
-    url: "/api/search/puffins",
-    type: "GET"
-  });
-});
-
 //on click to search one specific puffin
-$("#submitSearchPuffin").on("click", function(event) {
+$("#puffinSearch").on("click", function(event) {
   event.preventDefault();
-  alert("puffin search");
-  const puffinInfo = {
-    puffinIndex: $("#puffinID")
-      .val()
-      .trim()
-  };
-  API.getOnePuffin(puffinInfo).then(returnData => {
-    console.log(returnData);
+  var puffinIndex = $("#puffinSearchID")
+    .val()
+    .trim();
+  API.getOnePuffin(puffinIndex).then(returnData => {
+    console.log("Puffin data returned", returnData);
   });
 });
 
