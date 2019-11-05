@@ -76,7 +76,8 @@ module.exports = function(app) {
   });
 
   // get notes by puffin id
-  app.get("/api/notes/:puffID", (request, response) => {
+  app.post("/api/notes/:puffID", (request, response) => {
+    console.log("route for puffin notes ", request.params.puffID);
     db.Notes.findAll({
       where: {
         puffinIndex: request.params.puffID
