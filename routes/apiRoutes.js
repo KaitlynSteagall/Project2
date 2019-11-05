@@ -101,59 +101,6 @@ module.exports = function(app) {
     });
   });
 
-  //get user Id
-  app.post("/api/getId", (request, response) => {
-    console.log("object going to server is: ", request.body);
-    const nameToCheck = request.body.userName;
-    const passToCheck = request.body.passwordName;
-    console.log("validation is checking against: ", nameToCheck, passToCheck);
-
-    db.Users.findOne({
-      where: {
-        userName: nameToCheck,
-        passwordName: passToCheck
-      }
-    }).then(userFromDB => {
-      console.log("apiroute", userFromDB.dataValues.userIndex);
-      response.json(userFromDB.dataValues.userIndex);
-    });
-  });
-
-  // validate user login
-  app.post("/api/checkuser", (request, response) => {
-    console.log("object going to server is: ", request.body);
-    const nameToCheck = request.body.userName;
-    const passToCheck = request.body.passwordName;
-    console.log("validation is checking against: ", nameToCheck, passToCheck);
-    let responseObject = {
-      isValid: false,
-      accessLevel: 0
-    };
-    db.Users.findOne({
-      where: {
-        userName: nameToCheck
-      }
-    }).then(userFromDB => {
-      console.log("sequelize found:", userFromDB.dataValues);
-      if (passToCheck === userFromDB.dataValues.passwordName) {
-        responseObject.isValid = true;
-        responseObject.accessLevel = userFromDB.dataValues.accessLevel;
-        // auth.userAuthenticationLevel = userFromDB.dataValues.accessLevel;
-      }
-      response.json(responseObject);
-      // if (userFromDB.dataValues.accessLevel === 1) {
-      //   console.log("we got admin access, should be sending page 1");
-      //   //response.redirect("level1Home");
-      //   response.render("level1Home");
-      // } else if (userFromDB.dataValues.accessLevel === 2) {
-      //   console.log("we got researcher access, should be sending page 2");
-      //   response.render("level2Home");
-      // } else {
-      //   response.json(responseObject);
-      // }
-    });
-  });
-
   // get information from selected public post, move it to puffin table
   // app.get("/api/public/id", auth.userIsResearcher, (request, response) => {
   app.get("/api/public/id", (request, response) => {
@@ -199,6 +146,61 @@ module.exports = function(app) {
   app.post("/api/users", (request, response) => {
     db.Users.create(request.body).then(pushedUser => {
       response.json(pushedUser);
+    });
+  });
+
+  // Push new note to database
+  // app.post("/api/notes", auth.userIsResearcher, (request, response) => {
+  app.post("/api/notes", (request, response) => {
+    db.Notes.create(request.body).then(pushedNote => {
+      response.json(pushedNote);
+    });
+  });
+
+  //check user id
+  app.post("/api/getId", (request, response) => {
+    console.log("object going to server is: ", request.body);
+    const nameToCheck = request.body.userName;
+    const passToCheck = request.body.passwordName;
+    console.log("validation is checking against: ", nameToCheck, passToCheck);
+
+    db.Users.findOne({
+      where: {
+        userName: nameToCheck,
+        passwordName: passToCheck
+      }
+    }).then(userFromDB => {
+      console.log("apiroute", userFromDB.dataValues.userIndex);
+      response.json(userFromDB.dataValues.userIndex);
+    });
+  });
+
+  // validate user login
+  app.post("/api/checkuser", (request, response) => {
+    console.log("object going to server is: ", request.body);
+    const nameToCheck = request.body.userName;
+    const passToCheck = request.body.passwordName;
+    console.log("validation is checking against: ", nameToCheck, passToCheck);
+    let responseObject = {
+      exists: true,
+      isValid: false,
+      accessLevel: 0
+    };
+    db.Users.findOne({
+      where: {
+        userName: nameToCheck
+      }
+    }).then(userFromDB => {
+      console.log("sequelize found:", userFromDB.dataValues);
+      if (!userFromDB.dataValues) {
+        responseObject.exists = false;
+      }
+      if (passToCheck === userFromDB.dataValues.passwordName) {
+        responseObject.isValid = true;
+        responseObject.accessLevel = userFromDB.dataValues.accessLevel;
+        // auth.userAuthenticationLevel = userFromDB.dataValues.accessLevel;
+      }
+      response.json(responseObject);
     });
   });
 
