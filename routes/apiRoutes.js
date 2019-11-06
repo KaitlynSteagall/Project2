@@ -76,15 +76,13 @@ module.exports = function(app) {
   });
 
   // get notes by puffin id
-  app.post("/api/notes/:puffID", (request, response) => {
+  app.get("/api/notes/:puffID", (request, response) => {
     console.log("route for puffin notes ", request.params.puffID);
     db.Notes.findAll({
       where: {
-        puffinIndex: request.params.puffID
+        PuffinPuffinIndex: request.params.puffID
       },
-      order: {
-        createdAt: "ASC"
-      }
+      order: [["createdAt", "ASC"]]
     }).then(noteDB => {
       response.json(noteDB);
     });
