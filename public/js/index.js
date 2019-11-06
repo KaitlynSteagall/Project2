@@ -43,10 +43,11 @@ const API = {
       type: "GET"
     });
   },
-  promoteData: function(id) {
+  promoteData: function(dataToSend) {
     return $.ajax({
-      url: "/api/public/" + id,
-      type: "GET"
+      url: "/api/public/add",
+      type: "GET",
+      data: JSON.stringify(dataToSend)
     });
   },
   getOneUser: function(id) {
@@ -135,10 +136,24 @@ $("#approveBtn").on("click", function(event) {
   event.preventDefault();
   console.log("approve button clicked");
   const entryID = $(this).attr(entryID);
-  // needs to create an object and send it
-  // object needs to be:
-  //{ text: note text, puffinID: id of puffin, imgurl: url, artistName: name entry, publicIndex: public index}
-  API.promoteData(entryID);
+  const userEnteredInfo = {
+    text: $("#text div")
+      .val()
+      .trim(),
+    puffinID: $("#puffin ID div")
+      .val()
+      .trim(),
+    imgurl: 0, // from firebase function, don't worry about this yet
+    artistName:
+      $("#user firstname")
+        .val()
+        .trim() +
+      $("#user lastname")
+        .val()
+        .trim(),
+    publicIndex: entryID
+  };
+  API.promoteData(userEnteredInfo).then();
 });
 
 //on click to search one specific puffin
