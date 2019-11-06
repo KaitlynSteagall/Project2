@@ -118,7 +118,6 @@ $("#signinButton").on("click", event => {
     if (infoFromServer.isValid === false) {
       alert("Sorry, that password doesn't match our records!");
     } else if (infoFromServer.accessLevel === 1) {
-      alert("yay you're an admin");
       // return $.ajax({
       //   url: "/admin",
       //   type: "GET"
@@ -126,7 +125,6 @@ $("#signinButton").on("click", event => {
       window.location = "/admin";
       // TODO: create some kind of local storage to keep us logged in long-term
     } else if (infoFromServer.accessLevel === 2) {
-      alert("yay you're a researcher");
       window.location = "/researcher";
       // again with the local storage
     }
@@ -183,7 +181,7 @@ $("#publicSubmissions").on("click", function(event) {
 
 $("#Logout").on("click", function(event) {
   event.preventDefault();
-  alert("You have logged out!");
+  window.location = "/";
 });
 
 //on click for admin to remove user
