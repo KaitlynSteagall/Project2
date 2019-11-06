@@ -1,10 +1,11 @@
-INSERT INTO Public (publicName, comments, createdAt)
+USE puffinpowerDB;
+INSERT INTO Publics (publicName, comments, createdAt)
 VALUES ("jessica", "I spotted this cute puffin with tag 1 on it's leg and took a photo", now());
 
-INSERT INTO Public (publicName, comments, createdAt)
+INSERT INTO Publics (publicName, comments, createdAt)
 VALUES ("babycakes", "I spotted this cute puffin with tag 8 on it's leg over by the lake", now());
 
-INSERT INTO Public (publicName, comments, createdAt)
+INSERT INTO Publics (publicName, comments, createdAt)
 VALUES ("jazzyJ", "I spotted this cute puffin but I couldn't make out the tag number, but I took a photo", now());
 
 INSERT INTO Puffins (puffinName, gender, age, createdAt)
@@ -67,14 +68,14 @@ VALUES ("wclements", "test8", 2, now());
 INSERT INTO Users (userName, passwordName, accessLevel, createdAt)
 VALUES ("nsylwester", "test9", 2, now());
 
-INSERT INTO Notes (notes, puffinIndex, createdAt)
-VALUES ("blubbers spent an hour this morning collecting shiny rocks", 1, now());
+INSERT INTO Notes (notes, createdAt, PuffinPuffinIndex)
+VALUES ("blubbers spent an hour this morning collecting shiny rocks", now(), 1);
 
-INSERT INTO Notes (notes, puffinIndex, createdAt)
-VALUES ("saw puffin #1 over on the west camera today, she's been wandering", 1, now());
+INSERT INTO Notes (notes, createdAt, PuffinPuffinIndex)
+VALUES ("saw puffin #1 over on the west camera today, she's been wandering", now(), 1);
 
-INSERT INTO Imageurls (imgurl, artistName, puffinIndex, createdAt)
-VALUES ("https://mediad.publicbroadcasting.net/p/shared/npr/styles/x_large/nprshared/201908/746246904.jpg", "Jane Doe", 1, now());
+INSERT INTO Imageurls (imgurl, artistName, createdAt, PuffinPuffinIndex)
+VALUES ("https://mediad.publicbroadcasting.net/p/shared/npr/styles/x_large/nprshared/201908/746246904.jpg", "Jane Doe", now(), 1);
 
-INSERT INTO Imageurls (imgurl, artistName, puffinIndex, createdAt)
-VALUES ("https://www.telegraph.co.uk/content/dam/Travel/2018/July/puffin-sad-GettyImages-564344853.jpg", "Jane Doe", 1, now());
+INSERT INTO Imageurls (imgurl, artistName, createdAt, PuffinPuffinIndex)
+VALUES ("https://www.telegraph.co.uk/content/dam/Travel/2018/July/puffin-sad-GettyImages-564344853.jpg", "Jane Doe", now(), 1);
