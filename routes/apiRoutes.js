@@ -11,17 +11,17 @@ const db = require("../models");
 //----------------
 
 // move data from public to puffin DB
-function pushPublicPuffin(dataObject, puffinID) {
+function pushPublicPuffin(dataObject) {
   // add any notes to the note db
   db.Notes.create({
     notes: dataObject.text,
-    puffinIndex: puffinID
+    puffinIndex: dataObject.puffinID
   });
   // add any images to the image db
   db.Imageurls.create({
     imgurl: dataObject.imgurl,
     artistName: dataObject.name,
-    puffinIndex: puffinID
+    puffinIndex: dataObject.puffinID
   });
 }
 
@@ -149,24 +149,25 @@ module.exports = function(app) {
 
   // get information from selected public post, move it to puffin table
   // app.get("/api/public/id", auth.userIsResearcher, (request, response) => {
-  app.get("/api/public/id", (request, response) => {
+  app.post("/api/public/add", (request, response) => {
     db.Public.findOne({
       where: {
-        publicIndex: request.params.id
+        publicIndex: request.body.publicIndex
       }
     }).then(publicObject => {
       // returns an object from the Public submission server
       const dataObject = {
         imageurl: publicObject.photos,
         name: publicObject.publicName,
-        text: publicObject.comments
+        text: publicObject.comments,
+        puffinID: request.body.puffinID
       };
       db.Public.destroy({
         where: {
-          publicIndex: request.params.id
+          publicIndex: request.body.publicIndex
         }
       });
-      pushPublicPuffin(dataObject, puffinID);
+      pushPublicPuffin(dataObject);
     });
     response.json(publicObject);
   });

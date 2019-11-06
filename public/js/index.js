@@ -131,6 +131,16 @@ $("#signinButton").on("click", event => {
   });
 });
 
+$("#approveBtn").on("click", function(event) {
+  event.preventDefault();
+  console.log("approve button clicked");
+  const entryID = $(this).attr(entryID);
+  // needs to create an object and send it
+  // object needs to be:
+  //{ text: note text, puffinID: id of puffin, imgurl: url, artistName: name entry, publicIndex: public index}
+  API.promoteData(entryID);
+});
+
 //on click to search one specific puffin
 $("#puffinSearch").on("click", function(event) {
   console.log("puffin search clicked");
