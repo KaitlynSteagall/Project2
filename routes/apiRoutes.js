@@ -19,13 +19,13 @@ function pushPublicPuffin(dataObject) {
   // add any notes to the note db
   db.Notes.create({
     notes: dataObject.text,
-    puffinIndex: dataObject.puffinID
+    PuffinPuffinIndex: dataObject.puffinID
   });
   // add any images to the image db
   db.Imageurls.create({
     imgurl: dataObject.imgurl,
     artistName: dataObject.name,
-    puffinIndex: dataObject.puffinID
+    PuffinPuffinIndex: dataObject.puffinID
   });
 }
 
@@ -96,9 +96,7 @@ module.exports = function(app) {
   // app.get("/api/public", auth.userIsResearcher, (request, response) => {
   app.get("/api/public", (request, response) => {
     db.Public.findAll({
-      order: {
-        createdAt: "DESC"
-      }
+      order: [["createdAt", "DESC"]]
     }).then(publicDB => {
       response.json(publicDB);
     });

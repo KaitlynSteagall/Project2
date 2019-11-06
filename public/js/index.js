@@ -100,6 +100,12 @@ const API = {
       url: "/api/notes/" + puffID,
       type: "GET"
     });
+  },
+  getAllPublicEntries: function() {
+    return $.ajax({
+      url: "/api/public",
+      type: "GET"
+    });
   }
 };
 
@@ -130,30 +136,6 @@ $("#signinButton").on("click", event => {
       // again with the local storage
     }
   });
-});
-
-$("#approveBtn").on("click", function(event) {
-  event.preventDefault();
-  console.log("approve button clicked");
-  const entryID = $(this).attr(entryID);
-  const userEnteredInfo = {
-    text: $("#text div")
-      .val()
-      .trim(),
-    puffinID: $("#puffin ID div")
-      .val()
-      .trim(),
-    imgurl: 0, // from firebase function, don't worry about this yet
-    artistName:
-      $("#user firstname")
-        .val()
-        .trim() +
-      $("#user lastname")
-        .val()
-        .trim(),
-    publicIndex: entryID
-  };
-  API.promoteData(userEnteredInfo).then();
 });
 
 //on click to search one specific puffin
@@ -221,6 +203,43 @@ $("#publicSubmissions").on("click", function(event) {
   alert("public submissions");
 });
 
+$("#publicSubmitsBtn").on("click", function(event) {
+  event.preventDefault();
+  API.getAllPublicEntries().then(returnData => {
+    console.log("public return data ", returnData);
+    for (var i = 0; i < returnData.length; i++) {
+      console.log(returnData[i]);
+      $("#submissions").append(
+        "<tr> <th scope='row'>" +
+          returnData[i].publicName +
+          "</th>" +
+          "<td>" +
+          returnData[i].comments +
+          "</td>" +
+          "<td>" +
+          returnData[i].photos +
+          "</td>" +
+          "<td>" +
+          `<td><button class="btn" id="approveBtn" style="background-color:aquamarine" entryID=${returnData[i].publicIndex}>Approve</button></th>` +
+          `<td><button class="btn" id="denyBtn" style="background-color:aquamarine" entryID=${returnData[i].publicIndex}>Deny</button></th>`
+      );
+    }
+  });
+});
+
+$(document).on("click", "#approveBtn", event => {
+  event.preventDefault();
+  console.log("approve button clicked");
+  const entryID = $(this).attr("entryID");
+  const userEnteredInfo = {
+    puffinIndex: $("#puffinIDdiv")
+      .val()
+      .trim(),
+    publicIndex: entryID
+  };
+  API.promoteData(userEnteredInfo).then();
+});
+
 $("#Logout").on("click", function(event) {
   event.preventDefault();
   window.location = "/";
@@ -284,9 +303,6 @@ $("#submitNewPuffin").on("click", event => {
   event.preventDefault();
 
   const puffinInfo = {
-    puffinIndex: $("#ID")
-      .val()
-      .trim(),
     puffinName: $("#nickname")
       .val()
       .trim(),
@@ -298,8 +314,8 @@ $("#submitNewPuffin").on("click", event => {
       .trim()
   };
 
-  if (!puffinInfo.puffinIndex) {
-    alert("You must enter a username, password and access level!");
+  if (!puffinInfo.puffinName) {
+    alert("You must enter a puffin name");
     return;
   }
 
