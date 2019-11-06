@@ -259,9 +259,6 @@ $("#submitNewPuffin").on("click", event => {
   event.preventDefault();
 
   const puffinInfo = {
-    puffinIndex: $("#ID")
-      .val()
-      .trim(),
     puffinName: $("#nickname")
       .val()
       .trim(),
@@ -273,8 +270,8 @@ $("#submitNewPuffin").on("click", event => {
       .trim()
   };
 
-  if (!puffinInfo.puffinIndex) {
-    alert("You must enter a username, password and access level!");
+  if (!puffinInfo.puffinName) {
+    alert("You must enter a puffin name");
     return;
   }
 
