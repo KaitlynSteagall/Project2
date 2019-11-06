@@ -97,7 +97,7 @@ const API = {
     console.log("function single puffin note ", puffID);
     return $.ajax({
       url: "/api/notes/" + puffID,
-      type: POST
+      type: "GET"
     });
   }
 };
@@ -169,6 +169,23 @@ $("#puffinSearch").on("click", function(event) {
       console.log("puffinID ", puffID);
       API.getSinglePuffinNote(puffID).then(returnData => {
         console.log("puffin note return data ", returnData);
+        for (var i = 0; i < returnData.length; i++) {
+          $("#notesTablePrint").append(
+            "<tr> <th scope='row'>" +
+              returnData[i].notesIndex +
+              "</th>" +
+              "<td>" +
+              returnData[i].notes +
+              "</td>" +
+              "<td>" +
+              returnData[i].createdAt +
+              "</td>" +
+              "<td>" +
+              returnData[i].updatedAt +
+              "</td>" +
+              "<td>"
+          );
+        }
       });
     });
   });
