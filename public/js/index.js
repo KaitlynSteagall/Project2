@@ -97,7 +97,7 @@ const API = {
     console.log("function single puffin note ", puffID);
     return $.ajax({
       url: "/api/notes/" + puffID,
-      type: POST
+      type: "GET"
     });
   }
 };
@@ -129,6 +129,16 @@ $("#signinButton").on("click", event => {
       // again with the local storage
     }
   });
+});
+
+$("#approveBtn").on("click", function(event) {
+  event.preventDefault();
+  console.log("approve button clicked");
+  const entryID = $(this).attr(entryID);
+  // needs to create an object and send it
+  // object needs to be:
+  //{ text: note text, puffinID: id of puffin, imgurl: url, artistName: name entry, publicIndex: public index}
+  API.promoteData(entryID);
 });
 
 //on click to search one specific puffin
@@ -169,6 +179,23 @@ $("#puffinSearch").on("click", function(event) {
       console.log("puffinID ", puffID);
       API.getSinglePuffinNote(puffID).then(returnData => {
         console.log("puffin note return data ", returnData);
+        for (var i = 0; i < returnData.length; i++) {
+          $("#notesTablePrint").append(
+            "<tr> <th scope='row'>" +
+              returnData[i].notesIndex +
+              "</th>" +
+              "<td>" +
+              returnData[i].notes +
+              "</td>" +
+              "<td>" +
+              returnData[i].createdAt +
+              "</td>" +
+              "<td>" +
+              returnData[i].updatedAt +
+              "</td>" +
+              "<td>"
+          );
+        }
       });
     });
   });
