@@ -263,6 +263,35 @@ $("#submitNewUser").on("click", event => {
     console.log(returnData);
   });
 });
+
+//on click for admin or researcher to create new puffin
+$("#submitNewPuffin").on("click", event => {
+  event.preventDefault();
+
+  const puffinInfo = {
+    puffinIndex: $("#ID")
+      .val()
+      .trim(),
+    puffinName: $("#nickname")
+      .val()
+      .trim(),
+    gender: $("#gender")
+      .val()
+      .trim(),
+    age: $("#age")
+      .val()
+      .trim()
+  };
+
+  if (!puffinInfo.puffinIndex) {
+    alert("You must enter a username, password and access level!");
+    return;
+  }
+
+  API.saveNewPuffin(puffinInfo).then(returnData => {
+    console.log(returnData);
+  });
+});
 // refreshExamples gets new examples from the db and repopulates the list
 // var refreshExamples = function() {
 //   API.getExamples().then(function(data) {
