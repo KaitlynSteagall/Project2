@@ -27,8 +27,8 @@
     <div class="col-lg-5 col-xs-5 py-5 my-5">
       <button class="btn col-12 mt-4 mb-5" style="background-color: aquamarine;" data-toggle="modal"
         href="#searchPuffins">Search Puffin Database</button>
-      <button class="btn col-12 mb-5" style="background-color: aquamarine;" data-toggle="modal"
-        href="#publicSubmits">View Public Submissions</button>
+      <button class="btn col-12 mb-5" style="background-color: aquamarine;" data-toggle="modal" href="#publicSubmits"
+        id="publicSubmitsBtn">View Public Submissions</button>
       <button class="btn col-12 mb-5" style="background-color: aquamarine;" data-toggle="modal" href="#addPuffin">
         Add New Puffin
       </button>
@@ -221,7 +221,7 @@
                   </tr>
                 </thead>
                 <tbody id="notesTablePrint">
-                  
+
                 </tbody>
               </table>
             </div>
@@ -298,6 +298,12 @@
         <div class="row mx-auto">
           <div class="col-12 mx-auto my-4 text-center">
             <table class="table table-bordered">
+              <form>
+                <div class="form-group row">
+                  <label for="puffinIDdiv" class="col-sm-2 col-form-label">Puffin ID</label>
+                  <input type="password" class="form-control" id="puffinIDdiv" placeholder="Puffin ID">
+                </div>
+              </form>
               <thead style="background-color: rgba(127, 255, 212, 0.212)">
                 <tr>
                   <th scope="col">Name</th>
@@ -308,11 +314,7 @@
                 </tr>
               </thead>
               <tbody id="submissions">
-                <th scope="col">Kaitlyn Steagall</th>
-                <th scope="col">kdajguith</th>
-                <th scope="col">fgjhutuenf</th>
-                <th scope="col"><button class="btn" id="approveBtn" style="background-color:aquamarine">Approve</button></th>
-                <th scope="col"><button class="btn" id="denyBtn" style="background-color:aquamarine">Deny</button></th>
+
               </tbody>
             </table>
           </div>
