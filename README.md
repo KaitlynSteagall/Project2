@@ -1,3 +1,10 @@
+## PuffinPower | grumpy-puffin-4289.herokuapp.com
+
+Group project: Create a website database of puffins that has 3 levels of access: public, researcher, and admin. Public can submit photos of puffins they see, researchers can view and approve public submitted photos, as well as add puffins and notes to the database. Admins can add or delete users. When checking out our site, use username: rpetit and password: test2. Search for puffin #1.
+MySQL, Sequelize, Handlebars.js, Node.js, Express.js, JavaScript/jQuery, Bootstrap
+
+
+
 # PuffinPower
 
 ## What Is This Thing?
